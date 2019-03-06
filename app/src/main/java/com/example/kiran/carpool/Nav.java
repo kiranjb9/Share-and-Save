@@ -100,9 +100,9 @@ public class Nav extends AppCompatActivity
                 fragment = new entryPage();
                 break;
             case R.id.nav_menu2:
-                fragment = new Entrypage2();
+                fragment = new Entrypage2();break;
             case R.id.nav_menu3:
-                fragment = new Entrypage3();
+                fragment = new Entrypage3();break;
 
         }
 

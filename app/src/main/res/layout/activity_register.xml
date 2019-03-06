@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="83dp"
+    tools:context=".Register">
 
 
     <EditText
@@ -13,16 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="FirstName"
-       android:inputType="textPersonName"
-    />
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/LastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:hint="LastName"
-    android:inputType="textPersonName"
-    />
+        android:hint="LastName"
+        android:inputType="textPersonName" />
 
 
     <EditText
@@ -30,8 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="EmailId"
-        android:inputType="textEmailAddress"
-    />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/MobileNumber"
@@ -39,23 +37,22 @@
         android:layout_height="wrap_content"
         android:hint="Mobile Number"
         android:inputType="phone"
-    />
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
         android:text="Submit"
-        tools:ignore="Invalidation"
         tools:background="@color/colorPrimaryDark"
-        />
+        tools:ignore="Invalidation" />
 
 
 </LinearLayout>

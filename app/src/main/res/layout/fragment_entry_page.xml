@@ -1,73 +1,123 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".entryPage">
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/idCardView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="31dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        app:cardCornerRadius="4dp">
-
-        <fragment
-            android:id="@+id/place_autocomplete_fragment"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        android:layout_height="wrap_content">
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:id="@+id/btn_PostRideOffer"
             />
 
-    </android.support.v7.widget.CardView>
+    </FrameLayout>
 
-
-
-    <Button
-        android:id="@+id/give_ride"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/offer_ride"
-        app:layout_constraintBottom_toTopOf="@+id/search_ride_offers"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idCardView" />
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/search_ride_offers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/search_ride_offers"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        app:layout_constraintBottom_toTopOf="@+id/placeName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/give_ride" />
+            <ImageView
+                android:id="@+id/girl"
+                android:layout_width="143dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/girl"
+
+                />
+
+            <LinearLayout
+                android:layout_width="265dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ListFname"
+                    android:layout_width="match_parent"
+                    android:layout_height="61dp"
+                    android:gravity="center"
+                    android:text="KIRAN"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textIsSelectable="true"
+                    android:textSize="20dp"
+                    android:textStyle="bold|italic" />
 
 
-    <TextView
-        android:id="@+id/placeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Place selected"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.714" />
+                <TextView
+                    android:id="@+id/datetime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="date" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:text="BLOOD GROUP : "
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/ListBloodG"
+                        android:layout_width="117dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:text="A+" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="92dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="44dp"
+                        android:gravity="center"
+                        android:text="HOSPITAL : "
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold|italic" />
+
+
+                    <TextView
+                        android:id="@+id/Listplace"
+                        android:layout_width="151dp"
+                        android:layout_height="81dp"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:text="dsdsdfgfg"
+                        android:textColor="@color/colorPrimaryDark" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
 </LinearLayout>

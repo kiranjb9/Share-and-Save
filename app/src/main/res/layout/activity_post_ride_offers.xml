@@ -1,26 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="83dp"
-    tools:context=".Ride_Details">
+    tools:context=".PostRideOffers">
 
 
-    <fragment
-        android:id="@+id/place_autocomplete_fragment1"
-        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-        android:layout_width="match_parent"
+
+    <EditText
+        android:id="@+id/editText_Source"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="SOURCE" />
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Source"
+        android:textSize="14sp"
+        android:inputType="none"
+        android:focusable="false"/>
 
-    <fragment
-        android:id="@+id/place_autocomplete_fragment2"
-        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/editText_Destination"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="SOURCE" />
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Destination"
+        android:textSize="14sp"
+        android:inputType="none"
+        android:focusable="false"/>
+
+    <!--<fragment-->
+        <!--android:id="@+id/place_autocomplete_fragment1"-->
+        <!--android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="SOURCE" />-->
+
+    <!--<fragment-->
+        <!--android:id="@+id/place_autocomplete_fragment2"-->
+        <!--android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="SOURCE" />-->
 
 
     <RadioGroup
@@ -46,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:id="@+id/layout1"
         >
 
@@ -56,14 +82,56 @@
             android:layout_height="wrap_content"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/lnrDynamicEditTextHolder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+
 
     </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ENter"
+        android:id="@+id/one"
+        android:visibility="gone"
+
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ENter"
+        android:id="@+id/two"
+        android:visibility="gone"
+
+
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ENter"
+        android:id="@+id/three"
+        android:visibility="gone"
+
+
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ENter"
+        android:id="@+id/four"
+        android:visibility="gone"
+
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ENter"
+        android:id="@+id/five"
+        android:visibility="gone"
+
+        />
 
 
     <RelativeLayout
@@ -115,6 +183,6 @@
 
     </RelativeLayout>
 
-
-
 </LinearLayout>
+</ScrollView>
+

@@ -3,6 +3,7 @@ package com.example.kiran.carpool;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,36 +19,42 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.example.kiran.carpool.Util.HttpManager;
+import com.example.kiran.carpool.Util.RiderPosts;
+import com.example.kiran.carpool.Util.StaticClass;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
 public class PostRideOffers extends AppCompatActivity {
-    Spinner dropdown;
-    Button selectDate,btn;
+    Spinner sp1,sp2;
+    Button selectDate,btn,btn_post;
     EditText date;
     DatePickerDialog datePickerDialog;
     int year;
     int month;
     int dayOfMonth;
     Calendar calendar;
-    EditText editText;
-    //TIME PICKER
+    boolean EdittextCheck;
+    //holds value from UI to send it asynctask
+    String source,dest,sourceLATlng,destLatlong,DATE,TIME,SEATS,PREF;
+
     EditText chooseTime;
     TimePickerDialog timePickerDialog;
     int currentHour;
     int currentMinute;
 
-    RadioButton radio2,radio1;
-    //Dynamic EDIT TEXT
-    private LinearLayout lnrDynamicEditTextHolder;
-    private EditText edtNoCreate;
-    private Button btnCreate;
 
+    RiderPosts ride = new RiderPosts();
+StaticClass s =new StaticClass();
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private EditText editTextSource, editTextDestination;
     private String TAG = "CreateRide";
@@ -57,19 +64,31 @@ public class PostRideOffers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_ride_offers);
 
-    //Auto complete
+        editTextDestination = (EditText)findViewById(R.id.editText_Destination);
+        editTextDestination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EdittextCheck=true;
+                try {
+                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(PostRideOffers.this);
+                    startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+                } catch (GooglePlayServicesRepairableException e) {
+                    // TODO: Handle the error.
+                } catch (GooglePlayServicesNotAvailableException e) {
 
-
-            // Handle editTextSource Click Handler
+                }
+            }
+        });
             editTextSource = (EditText)findViewById(R.id.editText_Source);
-
             editTextSource.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    EdittextCheck=false;
                     try {
                         Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(PostRideOffers.this);
 
                         startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+
                     } catch (GooglePlayServicesRepairableException e) {
                         // TODO: Handle the error.
                     } catch (GooglePlayServicesNotAvailableException e) {
@@ -79,15 +98,30 @@ public class PostRideOffers extends AppCompatActivity {
             });
         }
 
+        //Setting results of source or destination
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
                 if (resultCode == RESULT_OK) {
                     Place place = PlaceAutocomplete.getPlace(this, data);
-                    System.out.println("1111111111111111111111111111111111111111111111111"+place.getName());
-                    editTextSource.setText(place.getName());
 
-                } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                    if(EdittextCheck==false) {
+                        editTextSource.setText(place.getName().toString());
+                        source = place.getAddress().toString();
+                        sourceLATlng = place.getLatLng().toString();
+                    }
+
+                    if(EdittextCheck==true){
+                        editTextDestination.setText(place.getName().toString());
+                        dest = place.getAddress().toString();
+                        destLatlong=place.getLatLng().toString();
+                        System.out.println("Destination 5455555555555555555555555555555555" + dest + "       " + destLatlong);
+
+                    }
+
+                }
+
+                else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                     Status status = PlaceAutocomplete.getStatus(this, data);
                     // TODO: Handle the error.
                     Log.i(TAG, status.getStatusMessage());
@@ -97,31 +131,9 @@ public class PostRideOffers extends AppCompatActivity {
                 }
             }
 
-            editTextDestination = (EditText)findViewById(R.id.editText_Destination);
-            editTextDestination.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(PostRideOffers.this);
-                        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-                    } catch (GooglePlayServicesRepairableException e) {
-                        // TODO: Handle the error.
-                    } catch (GooglePlayServicesNotAvailableException e) {
-
-                    }
-                }
-            });
+            //Destination auto complete
 
 
-
-        dropdown = findViewById(R.id.spinner1);
-//create a list of items for the spinner.
-        String[] items = new String[]{"0","1", "2", "3","4","5"};
-//create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
-        dropdown.setAdapter(adapter);
 
 
 
@@ -140,11 +152,14 @@ public class PostRideOffers extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                                 date.setText(day + "/" + (month + 1) + "/" + year);
+                                SettingDateVariables(day + "/" + (month + 1) + "/" + year);
                             }
                         }, year, month, dayOfMonth);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
+
+
         });
 
         selectDate.setOnClickListener(new View.OnClickListener() {
@@ -159,13 +174,13 @@ public class PostRideOffers extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                                 date.setText(day + "/" + (month + 1) + "/" + year);
+                                SettingDateVariables(day + "/" + (month + 1) + "/" + year);
                             }
                         }, year, month, dayOfMonth);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
         });
-
 
 
 
@@ -186,8 +201,10 @@ public class PostRideOffers extends AppCompatActivity {
                         int hour = hourOfDay % 12;
                         if (hour == 0)
                             hour = 12;
-                        chooseTime.setText(String.format("%02d:%02d %s", hour, minutes,
-                                hourOfDay < 12 ? "am" : "pm"));
+                        String time= String.format("%02d:%02d %s", hour, minutes,
+                                hourOfDay < 12 ? "am" : "pm");
+                        chooseTime.setText(time);
+                        SetTimeVariable(time);
 
                     }
                 }, currentHour, currentMinute, false);
@@ -210,8 +227,10 @@ public class PostRideOffers extends AppCompatActivity {
                         int hour = hourOfDay % 12;
                         if (hour == 0)
                             hour = 12;
-                        chooseTime.setText(String.format("%02d:%02d %s", hour, minutes,
-                                hourOfDay < 12 ? "am" : "pm"));
+                        String time= String.format("%02d:%02d %s", hour, minutes,
+                                hourOfDay < 12 ? "am" : "pm");
+                        chooseTime.setText(time);
+                        SetTimeVariable(time);
 
                     }
                 }, currentHour, currentMinute, false);
@@ -220,69 +239,149 @@ public class PostRideOffers extends AppCompatActivity {
             }
         });
 
-        //Radio button
-        radio2 = findViewById(R.id.radio2);
-        radio1 = findViewById(R.id.radio1);
+        //spinner1
+            sp1 =findViewById(R.id.spinner1);
+            sp2 =findViewById(R.id.spinner2);
+          SEATS=  sp1.getSelectedItem().toString();
+          PREF = sp2.getSelectedItem().toString();
 
 
-        radio1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.layout1).setVisibility(View.GONE);
-                findViewById(R.id.one).setVisibility(View.GONE);
-                findViewById(R.id.two).setVisibility(View.GONE);
-                findViewById(R.id.three).setVisibility(View.GONE);
-                findViewById(R.id.four).setVisibility(View.GONE);
-                findViewById(R.id.five).setVisibility(View.GONE);}
+            btn_post = (Button) findViewById(R.id.posts);
+            btn_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //calling Async
+                    if(check()){
+                      RegisterUser registerUser = new RegisterUser();
+                      registerUser.execute();
+                }
+                }
+                private Boolean check(){
 
-
-        });
-        radio2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.layout1).setVisibility(View.VISIBLE);
-            }
-
+             ride.setSource(source);
+             ride.setDestination(dest);
+             ride.setSoure_latlong(sourceLATlng);
+             ride.setDest_latlong(destLatlong);
+             ride.setSeats(SEATS);
+             ride.setPreference(PREF);
+             ride.setDate(DATE);
+             ride.setTime(TIME);
+             ride.setRide_postedBy(s.getUserID());
+                    return true;
+                }
             });
+//        dropdown = findViewById(R.id.spinner1);
+////create a list of items for the spinner.
+//        String[] items = new String[]{"0","1", "2", "3","4","5"};
+////create an adapter to describe how the items are displayed, adapters are used in several places in android.
+////There are multiple variations of this, but this is the basic variant.
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+////set the spinners adapter to the previously created one.
+//        dropdown.setAdapter(adapter);
 
-        int  length = Integer.parseInt(dropdown.getSelectedItem().toString());
 
 
-        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                int  length = Integer.parseInt(parentView.getSelectedItem().toString());
 
-                findViewById(R.id.one).setVisibility(View.GONE);
-                findViewById(R.id.two).setVisibility(View.GONE);
-                findViewById(R.id.three).setVisibility(View.GONE);
-                findViewById(R.id.four).setVisibility(View.GONE);
-                findViewById(R.id.five).setVisibility(View.GONE);
-            if (length==0)
-            {
-                findViewById(R.id.one).setVisibility(View.GONE);
-                findViewById(R.id.two).setVisibility(View.GONE);
-                findViewById(R.id.three).setVisibility(View.GONE);
-                findViewById(R.id.four).setVisibility(View.GONE);
-                findViewById(R.id.five).setVisibility(View.GONE);
+            //Radio button
+//        radio2 = findViewById(R.id.radio2);
+//        radio1 = findViewById(R.id.radio1);
+//
+//
+//        radio1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                findViewById(R.id.layout1).setVisibility(View.GONE);
+//                findViewById(R.id.one).setVisibility(View.GONE);
+//                findViewById(R.id.two).setVisibility(View.GONE);
+//                findViewById(R.id.three).setVisibility(View.GONE);
+//                findViewById(R.id.four).setVisibility(View.GONE);
+//                findViewById(R.id.five).setVisibility(View.GONE);}
+//
+//
+//        });
+//        radio2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                findViewById(R.id.layout1).setVisibility(View.VISIBLE);
+//            }
+//
+//            });
+//
+//        int  length = Integer.parseInt(dropdown.getSelectedItem().toString());
+//
+//
+//        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                int  length = Integer.parseInt(parentView.getSelectedItem().toString());
+//
+//                findViewById(R.id.one).setVisibility(View.GONE);
+//                findViewById(R.id.two).setVisibility(View.GONE);
+//                findViewById(R.id.three).setVisibility(View.GONE);
+//                findViewById(R.id.four).setVisibility(View.GONE);
+//                findViewById(R.id.five).setVisibility(View.GONE);
+//            if (length==0)
+//            {
+//                findViewById(R.id.one).setVisibility(View.GONE);
+//                findViewById(R.id.two).setVisibility(View.GONE);
+//                findViewById(R.id.three).setVisibility(View.GONE);
+//                findViewById(R.id.four).setVisibility(View.GONE);
+//                findViewById(R.id.five).setVisibility(View.GONE);
+//            }
+//            if(length==1) findViewById(R.id.one).setVisibility(View.VISIBLE);
+//                if(length==2) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);}
+//                if(length==3) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);}
+//                if(length==4) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);findViewById(R.id.four).setVisibility(View.VISIBLE);}
+//                if(length==5) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);findViewById(R.id.four).setVisibility(View.VISIBLE);findViewById(R.id.five).setVisibility(View.VISIBLE);}
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // your code here
+//            }
+//
+//
+//
+//
+//        });
+    }
+
+    private void SetTimeVariable(String time) {
+        TIME = time;
+    }
+
+    private void SettingDateVariables(String s) {
+        DATE=s;
+    }
+
+    class RegisterUser extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpManager httpManager = new HttpManager(getApplicationContext());
+            Gson gson = new Gson();
+            String userJson = gson.toJson(ride, RiderPosts.class);
+            System.out.println("User Json - " + userJson);
+            String result = HttpManager.postData(getResources().getString(R.string.serviceUrl)+"/insertRideOffers",userJson);
+            System.out.println("Result - " + result);
+
+            return result;
+        }
+
+        protected void onPostExecute(String result) {
+            System.out.println("Result - " + result);
+
+            if (result != null && !result.isEmpty()) {
+                System.out.println("Result - " + result);
+                Intent myIntent = new Intent(PostRideOffers.this, Nav.class);
+                startActivity(myIntent);
             }
-            if(length==1) findViewById(R.id.one).setVisibility(View.VISIBLE);
-                if(length==2) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);}
-                if(length==3) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);}
-                if(length==4) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);findViewById(R.id.four).setVisibility(View.VISIBLE);}
-                if(length==5) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);findViewById(R.id.four).setVisibility(View.VISIBLE);findViewById(R.id.five).setVisibility(View.VISIBLE);}
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
+        }
 
 
-
-
-        });
     }
 }

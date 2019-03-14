@@ -49,89 +49,113 @@
         <!--android:hint="SOURCE" />-->
 
 
-    <RadioGroup
-        android:id="@+id/radio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <!--<RadioGroup-->
+        <!--android:id="@+id/radio"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <RadioButton
-            android:id="@+id/radio1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NON STOP RIDE FROM SOURCE" />
+        <!--<RadioButton-->
+            <!--android:id="@+id/radio1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="NON STOP RIDE FROM SOURCE" />-->
 
-        <RadioButton
-            android:id="@+id/radio2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="DO YOU WANNA PICK PEOPLE IN BETWEEN THE RIDE" />
+        <!--<RadioButton-->
+            <!--android:id="@+id/radio2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:checked="true"-->
+            <!--android:text="DO YOU WANNA PICK PEOPLE IN BETWEEN THE RIDE" />-->
 
-    </RadioGroup>
+    <!--</RadioGroup>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="invisible"-->
+        <!--android:id="@+id/layout1"-->
+        <!--&gt;-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="invisible"
-        android:id="@+id/layout1"
-        >
-
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="250dp"
+            android:text="Available seats"
+            android:layout_height="50dp" />
         <Spinner
             android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:entries="@array/seats"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="250dp"
+            android:text="Preference for : "
+            android:layout_height="50dp" />
+        <Spinner
+            android:id="@+id/spinner2"
+            android:entries="@array/pref"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"/>
-
-
     </LinearLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ENter"
-        android:id="@+id/one"
-        android:visibility="gone"
+    <!--</LinearLayout>-->
 
-        />
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="ENter"-->
+        <!--android:id="@+id/one"-->
+        <!--android:visibility="gone"-->
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ENter"
-        android:id="@+id/two"
-        android:visibility="gone"
+        <!--/>-->
 
-
-        />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ENter"
-        android:id="@+id/three"
-        android:visibility="gone"
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="ENter"-->
+        <!--android:id="@+id/two"-->
+        <!--android:visibility="gone"-->
 
 
-        />
+        <!--/>-->
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ENter"
-        android:id="@+id/four"
-        android:visibility="gone"
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="ENter"-->
+        <!--android:id="@+id/three"-->
+        <!--android:visibility="gone"-->
 
 
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ENter"
-        android:id="@+id/five"
-        android:visibility="gone"
+        <!--/>-->
 
-        />
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="ENter"-->
+        <!--android:id="@+id/four"-->
+        <!--android:visibility="gone"-->
+
+
+        <!--/>-->
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="ENter"-->
+        <!--android:id="@+id/five"-->
+        <!--android:visibility="gone"-->
+
+        <!--/>-->
 
 
     <RelativeLayout
@@ -182,6 +206,13 @@
             android:text="SELECT TIME" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/posts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="POST"
+        />
 
 </LinearLayout>
 </ScrollView>

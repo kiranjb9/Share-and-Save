@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.kiran.carpool.Util.HttpManager;
+import com.example.kiran.carpool.Util.StaticClass;
 import com.example.kiran.carpool.Util.User;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
     Button button;
@@ -18,6 +23,8 @@ public class Login extends AppCompatActivity {
     String result;
     String Vemail,Vpass;
     final User newUser = new User();
+    StaticClass s = new StaticClass();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +70,25 @@ public class Login extends AppCompatActivity {
         }
 
         protected void onPostExecute(String result) {
+
             System.out.println("Result - " + result);
-            if (result.equals("1")) {
-                System.out.println("Result - " + result);
-                Intent myIntent = new Intent(Login.this, Nav.class);
+            JSONObject jresponse = null;
+            try {
+                jresponse = new JSONObject(result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            System.out.println(jresponse.optString("Fname"));
+
+            s.setUserID(jresponse.optString("_id"));
+
+            if (result != null && !result.isEmpty()) {
+
+                Intent myIntent = new Intent(Login.this, StartPage.class);
                 startActivity(myIntent);
+            }
+            if (result == null )   {
+                Log.d("error","nothing found");
             }
 
         }

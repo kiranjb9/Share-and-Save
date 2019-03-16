@@ -1,4 +1,4 @@
-package com.example.kiran.carpool.Util;
+package com.example.kiran.carpool.Util.Models;
 
 public class RiderPosts {
 
@@ -10,14 +10,23 @@ public class RiderPosts {
     private String time;
     private String seats;
     private String preference;
-    private String Ride_postedBy;
-    private  User u;
+    private String userid;
+    private User Ride_postedBy;
 
-    public String getRide_postedBy() {
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public User getRide_postedBy() {
         return Ride_postedBy;
     }
 
-    public void setRide_postedBy(String ride_postedBy) {
+    public void setRide_postedBy(User ride_postedBy) {
         Ride_postedBy = ride_postedBy;
     }
 
@@ -85,11 +94,5 @@ public class RiderPosts {
         this.preference = preference;
     }
 
-    public User getU() {
-        return u;
-    }
 
-    public void setU(User u) {
-        this.u = u;
-    }
 }

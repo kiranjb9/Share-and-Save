@@ -1,8 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btn_PostRideOffer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="POST AN OFFER" />
+</FrameLayout>
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".entryPage">
+
 
     <ListView
         android:id="@+id/simpleListView"
@@ -11,4 +26,4 @@
         android:divider="#000"
         android:dividerHeight="2dp"/>
 
-</RelativeLayout>
+</RelativeLayout></LinearLayout>

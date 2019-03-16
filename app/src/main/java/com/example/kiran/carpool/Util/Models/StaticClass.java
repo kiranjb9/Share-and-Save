@@ -1,4 +1,4 @@
-package com.example.kiran.carpool.Util;
+package com.example.kiran.carpool.Util.Models;
 
 public class StaticClass {
     public   static String userID;

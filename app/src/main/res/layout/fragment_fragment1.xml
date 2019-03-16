@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#e4e9ed"
+    android:orientation="vertical"
+    tools:context=".RideSeeker.Fragment1">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="63dp"
+                android:layout_height="59dp"
+                android:src="@drawable/green" />
+
+            <TextView
+                android:id="@+id/Searchdatetime"
+                android:layout_width="84dp"
+                android:layout_height="42dp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="100dp"
+                android:text="DATE TIME"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="59dp"
+                android:layout_marginLeft="75dp"
+
+                android:padding="0dp"
+                android:src="@drawable/red" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="87dp"
+            android:background="@color/colorPrimaryDark"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/Searchsource"
+                android:layout_width="137dp"
+                android:layout_height="74dp"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:text="DELHI"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/Searchdest"
+                android:layout_width="140dp"
+                android:layout_height="77dp"
+                android:layout_marginLeft="122dp"
+                android:gravity="start"
+                android:text="DELHI"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+
+            android:background="@color/colorAccent"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="112dp"
+                android:layout_height="88dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/kiran"
+
+                />
+
+
+            <LinearLayout
+                android:layout_width="147dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Searchname"
+                    android:layout_width="127dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="KIRAN JB" />
+
+                <TextView
+                    android:id="@+id/Searchphno"
+                    android:layout_width="127dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+
+                    android:text="9740695919" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_request"
+                android:layout_width="129dp"
+                android:layout_height="61dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="REQUEST" />
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+
+

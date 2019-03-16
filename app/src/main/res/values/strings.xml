@@ -42,4 +42,26 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="offer_ride">OFFER RIDE</string>
     <string name="search_ride_offers">SEARCH RIDE OFFERS</string>
+
+
+    <string name="facebook_app_id">2051303855162684</string>
+    <string name="fb_login_protocol_scheme">fb2051303855162684</string>
+    <string name="cancel_login">err</string>
+    <string name="error_login">errrrrrrrrr</string>
+    <string name="title_activity_nav2">NAV2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+
+    <string name="action_example">Example action</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+
+    <string name="title_profile">Profile</string>
+    <string name="app_namee"><![CDATA[Share&Save]]></string>
+
 </resources>

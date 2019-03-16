@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.kiran.carpool.Util.HttpManager;
-import com.example.kiran.carpool.Util.User;
+import com.example.kiran.carpool.Util.Models.User;
 import com.google.gson.Gson;
 
 public class Register extends AppCompatActivity {

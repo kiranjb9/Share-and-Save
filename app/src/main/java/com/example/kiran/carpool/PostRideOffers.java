@@ -8,29 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.example.kiran.carpool.Util.HttpManager;
-import com.example.kiran.carpool.Util.RiderPosts;
-import com.example.kiran.carpool.Util.StaticClass;
+import com.example.kiran.carpool.Util.Models.RiderPosts;
+import com.example.kiran.carpool.Util.Models.StaticClass;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -96,40 +88,10 @@ StaticClass s =new StaticClass();
                     }
                 }
             });
-        }
+
 
         //Setting results of source or destination
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-                if (resultCode == RESULT_OK) {
-                    Place place = PlaceAutocomplete.getPlace(this, data);
 
-                    if(EdittextCheck==false) {
-                        editTextSource.setText(place.getName().toString());
-                        source = place.getAddress().toString();
-                        sourceLATlng = place.getLatLng().toString();
-                    }
-
-                    if(EdittextCheck==true){
-                        editTextDestination.setText(place.getName().toString());
-                        dest = place.getAddress().toString();
-                        destLatlong=place.getLatLng().toString();
-                        System.out.println("Destination 5455555555555555555555555555555555" + dest + "       " + destLatlong);
-
-                    }
-
-                }
-
-                else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                    Status status = PlaceAutocomplete.getStatus(this, data);
-                    // TODO: Handle the error.
-                    Log.i(TAG, status.getStatusMessage());
-
-                } else if (resultCode == RESULT_CANCELED) {
-                    // The user canceled the operation.
-                }
-            }
 
             //Destination auto complete
 
@@ -266,7 +228,7 @@ StaticClass s =new StaticClass();
              ride.setPreference(PREF);
              ride.setDate(DATE);
              ride.setTime(TIME);
-             ride.setRide_postedBy(s.getUserID());
+             ride.setUserid(s.getUserID());
                     return true;
                 }
             });
@@ -348,6 +310,37 @@ StaticClass s =new StaticClass();
 //
 //        });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+
+                if(EdittextCheck==false) {
+                    editTextSource.setText(place.getName().toString());
+                    source = place.getAddress().toString();
+                    sourceLATlng = place.getLatLng().toString();
+                }
+
+                if(EdittextCheck==true){
+                    editTextDestination.setText(place.getName().toString());
+                    dest = place.getAddress().toString();
+                    destLatlong=place.getLatLng().toString();
+                    System.out.println("Destination 5455555555555555555555555555555555" + dest + "       " + destLatlong);
+
+                }
+
+            }
+
+            else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i(TAG, status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }}
 
     private void SetTimeVariable(String time) {
         TIME = time;

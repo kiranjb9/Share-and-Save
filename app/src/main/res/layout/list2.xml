@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText_Source"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:hint="Source"
+            android:inputType="none"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText_Destination"
+            android:layout_width="515dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:hint="Destination"
+            android:inputType="none"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="137dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="SEARCH" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Fragment1">
+
+
+        <ListView
+            android:id="@+id/simpleListView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/com_facebook_blue" />
+
+    </RelativeLayout>
+</LinearLayout>

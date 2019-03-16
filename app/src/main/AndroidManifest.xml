@@ -19,30 +19,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PostRideOffers">
+        <activity
+            android:name=".RideSeeker.MainActivity"
+            android:label="@string/title_activity_main">
+
 
         </activity>
-        <activity android:name=".StartPage">
 
-        </activity>
+        <activity android:name=".PostRideOffers" />
+        <activity android:name=".StartPage" />
         <activity
             android:name=".Nav"
-            android:label="@string/app_name"
+            android:label="@string/app_namee"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Register" />
-        <activity android:name=".Login" >
+        <activity android:name=".Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCFz3q92Zyd5Ia1aAR1TU2L3rzXq8UAuI4" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>

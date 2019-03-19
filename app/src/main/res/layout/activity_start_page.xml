@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="459dp"
             android:layout_height="218dp"
-            android:background="@drawable/bg"
+            android:background="@mipmap/bg"
             android:orientation="horizontal"
 
             >
@@ -29,7 +29,7 @@
                 android:layout_height="154dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="1dp"
-                android:src="@drawable/kiran"
+                android:src="@mipmap/kiran"
 
                 />
 
@@ -40,7 +40,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="443dp"
-        android:background="@drawable/bg"
+        android:background="@mipmap/bg"
         android:orientation="vertical">
 
         <Button

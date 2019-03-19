@@ -23,6 +23,7 @@
     </string>
 
     <string-array name="seats">
+        <item>SELECT</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

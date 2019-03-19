@@ -49,7 +49,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="wrap_content"
         android:text="Submit"
         tools:background="@color/colorPrimaryDark"
         tools:ignore="Invalidation" />

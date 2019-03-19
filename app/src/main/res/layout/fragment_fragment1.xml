@@ -24,7 +24,7 @@
             <ImageView
                 android:layout_width="63dp"
                 android:layout_height="59dp"
-                android:src="@drawable/green" />
+                android:src="@mipmap/green" />
 
             <TextView
                 android:id="@+id/Searchdatetime"
@@ -41,7 +41,7 @@
                 android:layout_marginLeft="75dp"
 
                 android:padding="0dp"
-                android:src="@drawable/red" />
+                android:src="@mipmap/red" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +84,7 @@
                 android:layout_height="88dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="1dp"
-                android:src="@drawable/kiran"
+                android:src="@mipmap/kiran"
 
                 />
 
@@ -114,7 +114,7 @@
 
 
             <Button
-                android:id="@+id/btn_request"
+                android:id="@+id/req"
                 android:layout_width="129dp"
                 android:layout_height="61dp"
                 android:layout_gravity="center"

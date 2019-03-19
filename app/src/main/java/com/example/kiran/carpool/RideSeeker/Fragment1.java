@@ -1,6 +1,7 @@
 package com.example.kiran.carpool.RideSeeker;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.kiran.carpool.Nav;
 import com.example.kiran.carpool.PostRideOffers;
@@ -39,8 +41,9 @@ import java.util.List;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class Fragment1 extends Fragment {
-    Button search;
+public class Fragment1 extends Fragment  {
+    Button search,req;
+    private Button launch_button;
     ListView listV;
     RiderPosts ride = new RiderPosts();
     String source, dest, sourceLATlng, destLatlong, DATE, TIME, SEATS, PREF;
@@ -48,6 +51,7 @@ public class Fragment1 extends Fragment {
     Context context = getActivity();
     EditText S, D;
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    final private static int DIALOG_LOGIN = 1;
 
     public Fragment1() {
 
@@ -55,10 +59,15 @@ public class Fragment1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.list2, container, false);
+        // Inflate the layout for this fragment
+
         listV = view.findViewById(R.id.simpleListView2);
-        context =getActivity();
+        context = getActivity();
+
+
+
+
         //destination auto complete
         D = (EditText) view.findViewById(R.id.editText_Destination);
         D.setOnClickListener(new View.OnClickListener() {
@@ -118,10 +127,13 @@ public class Fragment1 extends Fragment {
 
         });
 
-
         //returning view
         return view;
     }
+
+
+
+
 
     //setting edit text of source & dest
     @Override
@@ -202,4 +214,8 @@ public class Fragment1 extends Fragment {
 
         getActivity().setTitle("SEARCH RIDES");
     }
+
 }
+
+
+

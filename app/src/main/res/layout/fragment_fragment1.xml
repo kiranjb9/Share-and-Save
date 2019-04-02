@@ -26,6 +26,7 @@
                 android:layout_height="59dp"
                 android:src="@mipmap/green" />
 
+
             <TextView
                 android:id="@+id/Searchdatetime"
                 android:layout_width="84dp"
@@ -42,6 +43,7 @@
 
                 android:padding="0dp"
                 android:src="@mipmap/red" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -61,13 +63,30 @@
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/noofseats"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@mipmap/seats"
+                android:gravity="center"
+                android:paddingBottom="11dp"
+                android:paddingRight="13dp"
+                android:text="4"
+                android:textSize="20dp" />
+
+
+
+            <TextView
                 android:id="@+id/Searchdest"
                 android:layout_width="140dp"
                 android:layout_height="77dp"
-                android:layout_marginLeft="122dp"
+                android:layout_marginLeft="12dp"
                 android:gravity="start"
                 android:text="DELHI"
                 android:textAlignment="center" />
+
+
 
         </LinearLayout>
 
@@ -120,6 +139,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="REQUEST" />
+
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>

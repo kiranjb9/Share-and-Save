@@ -1,11 +1,13 @@
 package com.example.kiran.carpool.Util.Models;
 
 public class User {
+    private  String _id;
     private String fname;
     private String lname;
     private String email;
     private String mobilenumber;
     private String pass;
+    private RiderPosts requests_sent_for_post;
 
     public String getFname() {
         return fname;
@@ -45,5 +47,13 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }

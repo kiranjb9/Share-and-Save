@@ -10,9 +10,9 @@ public class RiderPosts {
     private String time;
     private String seats;
     private String preference;
-    private String userid;
+    private String _id;
+    private  String userid;
     private User Ride_postedBy;
-
 
     public String getUserid() {
         return userid;
@@ -20,6 +20,14 @@ public class RiderPosts {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public User getRide_postedBy() {

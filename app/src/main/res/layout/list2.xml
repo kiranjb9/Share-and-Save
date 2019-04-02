@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:hint="Source"
+            android:clickable="false"
             android:inputType="none"
             android:textSize="15sp" />
 
@@ -23,6 +24,7 @@
             android:layout_width="515dp"
             android:layout_height="35dp"
             android:layout_marginTop="5dp"
+            android:clickable="false"
             android:hint="Destination"
             android:inputType="none"
             android:textSize="15sp" />

@@ -8,11 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.kiran.carpool.Util.HttpManager;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
@@ -29,6 +32,7 @@ import java.util.Calendar;
 public class PostRideOffers extends AppCompatActivity {
     Spinner sp1,sp2;
     Button selectDate,btn,btn_post;
+    ArrayAdapter<CharSequence> adapter1, adapter2;
     EditText date;
     DatePickerDialog datePickerDialog;
     int year;
@@ -55,6 +59,48 @@ StaticClass s =new StaticClass();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_ride_offers);
+
+        //spinner1
+        sp1=(Spinner) findViewById(R.id.spinner1);
+        adapter1 = ArrayAdapter.createFromResource(this, R.array.seats, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp1.setAdapter(adapter1);
+        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
+                SEATS=  sp1.getSelectedItem().toString();
+                Toast.makeText(getBaseContext(), parent.getItemAtPosition(pos) + " slected ", ((Toast.LENGTH_LONG)/2)).show();
+
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        //spinner2
+        sp2=(Spinner) findViewById(R.id.spinner2);
+        adapter2 = ArrayAdapter.createFromResource(this, R.array.pref, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp2.setAdapter(adapter2);
+        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
+                PREF=  sp2.getSelectedItem().toString();
+                Toast.makeText(getBaseContext(), parent.getItemAtPosition(pos) + " slected ", ((Toast.LENGTH_LONG)/2)).show();
+
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        System.out.println("PREF Seats " +SEATS +" /////////////////" + PREF );
 
         editTextDestination = (EditText)findViewById(R.id.editText_Destination);
         editTextDestination.setOnClickListener(new View.OnClickListener() {
@@ -201,11 +247,7 @@ StaticClass s =new StaticClass();
             }
         });
 
-        //spinner1
-            sp1 =findViewById(R.id.spinner1);
-            sp2 =findViewById(R.id.spinner2);
-          SEATS=  sp1.getSelectedItem().toString();
-          PREF = sp2.getSelectedItem().toString();
+
 
 
             btn_post = (Button) findViewById(R.id.posts);

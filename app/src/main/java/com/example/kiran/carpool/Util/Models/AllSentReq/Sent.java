@@ -7,8 +7,15 @@ public class Sent {
     private RiderPosts requests_sent_for_post;
     private User requests_sent_for_the_user;
     private  String  seats_requested;
+    private  String  _id;
 
+    public String get_id() {
+        return _id;
+    }
 
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public RiderPosts getRequests_sent_for_post() {
         return requests_sent_for_post;

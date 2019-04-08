@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.kiran.carpool.R;
 import com.example.kiran.carpool.RideSeeker.Adapters.Reqsent;
@@ -29,6 +30,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class Fragment2 extends Fragment {
     List<AllSentReq>  userList;
     ListView listV;
+    Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -36,7 +38,8 @@ public class Fragment2 extends Fragment {
         view = inflater.inflate(R.layout.list3, container, false);
        DialogReq d = new DialogReq();
         d.execute();
-
+        listV = view.findViewById(R.id.simpleListView3);
+        context = getActivity();
         return view;
     }
 
@@ -44,7 +47,7 @@ public class Fragment2 extends Fragment {
 
         @Override
         protected String doInBackground(Void... params) {
-            HttpManager httpManager = new HttpManager(getApplicationContext());
+            HttpManager httpManager = new HttpManager(context);
             Gson gson = new Gson();
 
             StaticClass staticClass = new StaticClass();
@@ -57,10 +60,12 @@ public class Fragment2 extends Fragment {
         protected void onPostExecute(String result) {
             System.out.println("Result - " + result);
             Gson gson = new Gson();
-//            List<AllSentReq>  userList = gson.fromJson(result, new TypeToken<List<AllSentReq>>() {
-//            }.getType());
+            List<AllSentReq>  userList = gson.fromJson(result, new TypeToken<List<AllSentReq>>() {
+            }.getType());
 
             if (TextUtils.isEmpty(result)) {
+
+                Toast.makeText(getContext(),"EMPTY RESULT",Toast.LENGTH_SHORT).show();
 
             }
 

@@ -37,6 +37,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -57,7 +58,7 @@ public class Fragment1 extends Fragment  {
     private Button launch_button;
     ListView listV;
     RiderPosts ride = new RiderPosts();
-    String source, dest, sourceLATlng, destLatlong, DATE, TIME, SEATS, PREF;
+    String source, dest, sourceLat,sourcelng, destLat,destLong, DATE, TIME, SEATS, PREF;
     boolean EdittextCheck;
     Context context = getActivity();
     EditText S, D;
@@ -135,8 +136,12 @@ public class Fragment1 extends Fragment  {
             }
 
             private Boolean check() {
-                ride.setSoure_latlong(sourceLATlng);
-                ride.setDest_latlong(destLatlong);
+                ride.setSoure_lat(sourceLat);
+                ride.setSoure_long(sourcelng);
+                ride.setDest_lat(destLat);
+                ride.setDest_long(destLong);
+                ride.setSource(source);
+                ride.setDestination(dest);
                 return true;
             }
 
@@ -162,16 +167,24 @@ public class Fragment1 extends Fragment  {
 
                 if (EdittextCheck == false) {
                     S.setText(place.getName().toString());
-                    source = place.getAddress().toString();
-                    sourceLATlng = place.getLatLng().toString();
+                    if (place != null) {
+                        LatLng latLng = place.getLatLng();
+                        sourceLat = String.valueOf(latLng.latitude);
+                        sourcelng = String.valueOf(latLng.longitude);
+                        source = place.getAddress().toString();
+                    }
+
+
                 }
 
                 if (EdittextCheck == true) {
                     D.setText(place.getName().toString());
-                    dest = place.getAddress().toString();
-                    destLatlong = place.getLatLng().toString();
-                    System.out.println("Destination 5455555555555555555555555555555555" + dest + "       " + destLatlong);
-
+                    if (place != null) {
+                        LatLng latLng = place.getLatLng();
+                        destLat = String.valueOf(latLng.latitude);
+                        destLong = String.valueOf(latLng.longitude);
+                        dest = place.getAddress().toString();
+                    }
                 }
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {

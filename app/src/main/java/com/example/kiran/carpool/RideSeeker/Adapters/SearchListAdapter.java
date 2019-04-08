@@ -112,7 +112,7 @@ int Position;
 
                         if (!spinner.getSelectedItem().toString().equalsIgnoreCase(("SELECT"))) {
                             num_seats=spinner.getSelectedItem().toString();
-                            Toast.makeText(getContext(),ride.getSeats(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),spinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
                             DialogReq d = new DialogReq();
                             d.execute();
                             req.setText("SENT");

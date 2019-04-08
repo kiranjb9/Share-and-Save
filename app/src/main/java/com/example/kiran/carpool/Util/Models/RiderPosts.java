@@ -4,8 +4,12 @@ public class RiderPosts {
 
     private String source;
     private String destination;
-    private String soure_latlong;
-    private String dest_latlong;
+    private String soure_lat;
+    private String soure_long;
+    private String dest_lat;
+    private String dest_long;
+
+
     private String date;
     private String time;
     private String seats;
@@ -54,20 +58,36 @@ public class RiderPosts {
         this.destination = destination;
     }
 
-    public String getSoure_latlong() {
-        return soure_latlong;
+    public String getSoure_lat() {
+        return soure_lat;
     }
 
-    public void setSoure_latlong(String soure_latlong) {
-        this.soure_latlong = soure_latlong;
+    public void setSoure_lat(String soure_lat) {
+        this.soure_lat = soure_lat;
     }
 
-    public String getDest_latlong() {
-        return dest_latlong;
+    public String getSoure_long() {
+        return soure_long;
     }
 
-    public void setDest_latlong(String dest_latlong) {
-        this.dest_latlong = dest_latlong;
+    public void setSoure_long(String soure_long) {
+        this.soure_long = soure_long;
+    }
+
+    public String getDest_lat() {
+        return dest_lat;
+    }
+
+    public void setDest_lat(String dest_lat) {
+        this.dest_lat = dest_lat;
+    }
+
+    public String getDest_long() {
+        return dest_long;
+    }
+
+    public void setDest_long(String dest_long) {
+        this.dest_long = dest_long;
     }
 
     public String getDate() {

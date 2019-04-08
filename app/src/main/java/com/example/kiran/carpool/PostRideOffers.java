@@ -25,6 +25,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
 import java.util.Calendar;
@@ -41,7 +42,7 @@ public class PostRideOffers extends AppCompatActivity {
     Calendar calendar;
     boolean EdittextCheck;
     //holds value from UI to send it asynctask
-    String source,dest,sourceLATlng,destLatlong,DATE,TIME,SEATS,PREF;
+    String source, dest, sourceLat,sourcelng, destLat,destLong,DATE,TIME,SEATS,PREF;
 
     EditText chooseTime;
     TimePickerDialog timePickerDialog;
@@ -262,10 +263,12 @@ StaticClass s =new StaticClass();
                 }
                 private Boolean check(){
 
-             ride.setSource(source);
-             ride.setDestination(dest);
-             ride.setSoure_latlong(sourceLATlng);
-             ride.setDest_latlong(destLatlong);
+                    ride.setSoure_lat(sourceLat);
+                    ride.setSoure_long(sourcelng);
+                    ride.setDest_lat(destLat);
+                    ride.setDest_long(destLong);
+                    ride.setSource(source);
+                    ride.setDestination(dest);
              ride.setSeats(SEATS);
              ride.setPreference(PREF);
              ride.setDate(DATE);
@@ -360,16 +363,22 @@ StaticClass s =new StaticClass();
 
                 if(EdittextCheck==false) {
                     editTextSource.setText(place.getName().toString());
-                    source = place.getAddress().toString();
-                    sourceLATlng = place.getLatLng().toString();
+                    if (place != null) {
+                        LatLng latLng = place.getLatLng();
+                        sourceLat = String.valueOf(latLng.latitude);
+                        sourcelng = String.valueOf(latLng.longitude);
+                        source = place.getAddress().toString();
+                    }
                 }
 
                 if(EdittextCheck==true){
                     editTextDestination.setText(place.getName().toString());
-                    dest = place.getAddress().toString();
-                    destLatlong=place.getLatLng().toString();
-                    System.out.println("Destination 5455555555555555555555555555555555" + dest + "       " + destLatlong);
-
+                    if (place != null) {
+                        LatLng latLng = place.getLatLng();
+                        destLat = String.valueOf(latLng.latitude);
+                        destLong = String.valueOf(latLng.longitude);
+                        dest = place.getAddress().toString();
+                    }
                 }
 
             }

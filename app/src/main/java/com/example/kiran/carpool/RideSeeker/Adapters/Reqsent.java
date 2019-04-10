@@ -1,8 +1,7 @@
 package com.example.kiran.carpool.RideSeeker.Adapters;
 
-import android.app.AlertDialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -62,24 +61,27 @@ public class Reqsent extends ArrayAdapter<AllSentReq> {
 
         View itemView = inflater.inflate(vg, parent, false);
         AllSentReq p = userList.get(position);
+        System.out.println("Position "+position);
 
 
         TextView txt=itemView.findViewById(R.id.Sent);
+            try {
+//            Toast.makeText(getContext(),"entered try",Toast.LENGTH_SHORT).show();
+//                System.out.println("Syso" + p.getS().size() + p.getS().get(i).getRequests_sent_for_the_user().getFname() + " " + p.getS().get(i).getRequests_sent_for_the_user().getLname() + "for the below post\n"
+//                        +p.getS().get(i).getSeats_requested() +" "+ p.get_id());
+                txt.setText("You requested a ride to" + p.getS().size() + p.getS().get(2).getRequests_sent_for_the_user().getFname() + " " + p.getS().get(2).getRequests_sent_for_the_user().getLname() + "for the below post\n"
+                +p.getS().get(1).getSeats_requested() +" "+ p.get_id());
+            for(int i=0;i<p.getS().size();i++){
+                System.out.println("_id of post "+i+" : "+p.getS().get(i).getRequests_sent_for_post().get_id() );
+                System.out.println("_id of user "+i+" : "+p.getS().get(i).getRequests_sent_for_the_user().get_id() );
+            }
 
-        try {
-            Toast.makeText(getContext(),"entered try",Toast.LENGTH_SHORT).show();
-            txt.setText("You requested a ride to" +s.getRequests_sent_for_the_user().getFname()+" "+s.getRequests_sent_for_the_user().getLname()+ "for the below post");
+            } catch (Exception e) {
+                txt.setText("ERROR" + e);
 
-            Toast.makeText(getContext(),s.getRequests_sent_for_post().getSource(),Toast.LENGTH_SHORT).show();
-
-
-
-
-
-        } catch (Exception e) {
-            System.out.println("ERROR"+e);
-            e.printStackTrace();
-        }
+                System.out.println("ERROR" + e);
+                e.printStackTrace();
+            }
 
         return itemView;
 

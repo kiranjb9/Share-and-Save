@@ -270,7 +270,6 @@ public class Fragment1 extends Fragment  {
                         SearchListAdapter adapter = new SearchListAdapter(context, R.layout.fragment_fragment1, userList);
                         listV.setAdapter(adapter);
 
-
                     }
 
                 }
@@ -310,7 +309,7 @@ public class Fragment1 extends Fragment  {
             }.getType());
 
             if (TextUtils.isEmpty(result)) {
-
+                Toast.makeText(getContext(),"EMPTY RESULT",Toast.LENGTH_SHORT).show();
             }
 
             else {

@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    >
+    tools:context=".RideSeeker.Fragment2">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="SENT REQUESTS"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
@@ -24,5 +25,8 @@
             android:layout_height="match_parent"
 
             android:text="To Kiran JB for the post "/>
+
+
+
     </LinearLayout>
 </LinearLayout>

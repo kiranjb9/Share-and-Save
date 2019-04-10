@@ -1,7 +1,6 @@
 package com.example.kiran.carpool.RideSeeker;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,29 +13,27 @@ import android.widget.Toast;
 
 import com.example.kiran.carpool.R;
 import com.example.kiran.carpool.RideSeeker.Adapters.Reqsent;
-import com.example.kiran.carpool.RideSeeker.Adapters.SearchListAdapter;
 import com.example.kiran.carpool.Util.HttpManager;
 import com.example.kiran.carpool.Util.Models.AllSentReq.AllSentReq;
-import com.example.kiran.carpool.Util.Models.RiderPosts;
 import com.example.kiran.carpool.Util.Models.StaticClass;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class Fragment2 extends Fragment {
-    List<AllSentReq>  userList;
+
     ListView listV;
     Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view ;
         view = inflater.inflate(R.layout.list3, container, false);
-       DialogReq d = new DialogReq();
+        DialogReq d = new DialogReq();
         d.execute();
         listV = view.findViewById(R.id.simpleListView3);
         context = getActivity();
@@ -60,28 +57,34 @@ public class Fragment2 extends Fragment {
         protected void onPostExecute(String result) {
             System.out.println("Result - " + result);
             Gson gson = new Gson();
-            List<AllSentReq>  userList = gson.fromJson(result, new TypeToken<List<AllSentReq>>() {
+           List<AllSentReq> userList = gson.fromJson(result, new TypeToken<List<AllSentReq>>() {
             }.getType());
 
-            if (TextUtils.isEmpty(result)) {
 
-                Toast.makeText(getContext(),"EMPTY RESULT",Toast.LENGTH_SHORT).show();
+               if (TextUtils.isEmpty(result)) {
 
-            }
+                   Toast.makeText(getContext(),"EMPTY RESULT",Toast.LENGTH_SHORT).show();
 
-            else {
-                if (userList != null && userList.size() > 0) {
-                    System.out.println("USER LIST CONTENT " + userList.get(0).toString());
+               }
 
-
-                    Reqsent adapter = new Reqsent(getContext(), R.layout.fragment_fragment2, userList);
-                    listV.setAdapter(adapter);
+               else {
+                   if (userList != null && userList.size() > 0) {
+                       System.out.println("USER LIST CONTENT " + userList.get(0).toString());
 
 
+                       Reqsent adapter = new Reqsent(getContext(), R.layout.fragment_fragment2, userList);
+                       listV.setAdapter(adapter);
 
-                }
 
-            }
+
+                   }
+
+               }
+
+
+
+
+
 
         }
 

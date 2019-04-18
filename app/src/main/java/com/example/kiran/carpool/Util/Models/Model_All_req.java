@@ -5,6 +5,7 @@ public class Model_All_req {
 
     private String obj_id;
 
+
     private String fname;
 
     private String lname;

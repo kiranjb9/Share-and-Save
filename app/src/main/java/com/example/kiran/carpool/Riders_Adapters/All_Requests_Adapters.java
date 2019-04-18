@@ -1,6 +1,8 @@
 package com.example.kiran.carpool.Riders_Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
@@ -15,10 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kiran.carpool.R;
+import com.example.kiran.carpool.RideSeeker.Adapters.SearchListAdapter;
 import com.example.kiran.carpool.Util.HttpManager;
 
 import com.example.kiran.carpool.Util.Models.Model_All_req;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
+import com.example.kiran.carpool.Util.Models.StaticClass;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -28,9 +32,11 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class All_Requests_Adapters extends ArrayAdapter<Model_All_req>{
     Model_All_req ride;
     String num_seats;
+    LayoutInflater inflater;
+    View itemView;
     int vg;
-    String req_for_post;
-    String result,postid;
+    String user_who_sent_id;
+    String result,obj_id;
     String user_id;
     Button Delete,Accept;
     Spinner spinner;
@@ -57,7 +63,7 @@ public class All_Requests_Adapters extends ArrayAdapter<Model_All_req>{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View itemView = inflater.inflate(vg, parent, false);
+      itemView = inflater.inflate(vg, parent, false);
 
         Delete = itemView.findViewById(R.id.deleteId);
         Accept = itemView.findViewById(R.id.acceptId);
@@ -78,7 +84,9 @@ public class All_Requests_Adapters extends ArrayAdapter<Model_All_req>{
         try {
             req_txt1.setText("You recieved a Request from " + p.getFname() + " " + p.getLname() + "for your Ride");
             req_txt2.setText( "Post" );
-
+            obj_id = p.getObj_id();
+            user_who_sent_id = p.getUser_who_sent_id();
+            user_id = p.getRide_postedBy();
 
         } catch (Exception e) {
 
@@ -123,13 +131,27 @@ public class All_Requests_Adapters extends ArrayAdapter<Model_All_req>{
 
             if (TextUtils.isEmpty(result)) {
 
+
             }
 
             else {
                 if (userList != null && userList.size() > 0) {
                     System.out.println("USER LIST CONTENT " + userList.get(0).toString());
-                    Toast.makeText(getApplicationContext(),"REQUEST SENT",Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder mbuilder = new AlertDialog.Builder(getContext());
+                   itemView = inflater.inflate(R.layout.dialogue_layout,null);
+                    mbuilder.setTitle("Request Sent");
 
+
+                    mbuilder.setNegativeButton("DONE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    mbuilder.setView(itemView);
+                    AlertDialog dialog=mbuilder.create();
+                    dialog.show();
+                }
 
 
                 }
@@ -141,4 +163,4 @@ public class All_Requests_Adapters extends ArrayAdapter<Model_All_req>{
 
     }
 
-}
+

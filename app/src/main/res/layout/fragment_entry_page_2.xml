@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Menu 2"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/txtReq1"
+            android:layout_width="332dp"
+            android:layout_height="47dp"
+            android:text="you got a request from  KIran JB"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txtReq2"
+            android:layout_width="82dp"
+            android:layout_height="match_parent"
+            android:text="post" />
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/acceptId"
+            android:layout_width="192dp"
+            android:layout_height="match_parent"
+            android:text="ACCEPT" />
+
+        <Button
+            android:id="@+id/deleteId"
+            android:layout_width="192dp"
+            android:layout_height="match_parent"
+            android:text="DELETE" />
+
+    </LinearLayout>
+
+</LinearLayout>

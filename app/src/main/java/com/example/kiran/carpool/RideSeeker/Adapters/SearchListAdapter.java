@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.kiran.carpool.R;
 import com.example.kiran.carpool.Util.HttpManager;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
+import com.example.kiran.carpool.Util.Models.StaticClass;
 import com.example.kiran.carpool.Util.Models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -106,9 +107,9 @@ int Position;
                         int position = (Integer) v.getTag();
                         // Access the row position here to get the correct data item
                           ride  = getItem(position);
-
+                        StaticClass sc =new StaticClass();
                         postid= ride.get_id();
-                        req_for_post= ride.getRide_postedBy().get_id();
+                        req_for_post= sc.getUserID();
 
                         if (!spinner.getSelectedItem().toString().equalsIgnoreCase(("SELECT"))) {
                             num_seats=spinner.getSelectedItem().toString();

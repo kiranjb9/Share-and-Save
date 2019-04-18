@@ -12,20 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.kiran.carpool.Util.HttpManager;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
 import com.example.kiran.carpool.Util.Models.StaticClass;
-import com.example.kiran.carpool.Util.Posts_Adapter;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.example.kiran.carpool.Riders_Adapters.Posts_Adapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

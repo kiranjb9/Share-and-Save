@@ -9,15 +9,15 @@ tools:showIn="navigation_view">
     <item
         android:id="@+id/nav_menu1"
         android:icon="@mipmap/ic_launcher"
-        android:title="Menu 1" />
+        android:title="All your posts" />
     <item
         android:id="@+id/nav_menu2"
         android:icon="@mipmap/ic_launcher"
-        android:title="Menu 2" />
+        android:title="Requests Recieved" />
     <item
         android:id="@+id/nav_menu3"
         android:icon="@mipmap/ic_launcher"
-        android:title="Menu 3" />
+        android:title="Agreed rides" />
 </item>
 
 </menu>

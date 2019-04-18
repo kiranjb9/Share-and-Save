@@ -1,32 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".RideSeeker.Fragment2">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="SENT REQUESTS"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/Sent"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:orientation="horizontal">
 
-            android:text="To Kiran JB for the post "/>
+            <TextView
 
+                android:layout_width="wrap_content"
+                android:layout_height="57dp"
+                android:text="You requested a Ride to " />
+
+            <TextView
+                android:id="@+id/clickableName"
+                android:layout_width="134dp"
+                android:layout_height="59dp"
+                android:clickable="true"
+                android:text="  name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/clickablePost"
+                android:layout_width="391dp"
+                android:layout_height="55dp"
+                android:clickable="true"
+                android:text="post"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearPost"
+        android:layout_width="match_parent"
+        android:layout_height="242dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="107dp"
+                android:layout_height="20dp"
+                android:text="SOURCE : " />
+
+            <TextView
+                android:id="@+id/source"
+                android:layout_width="295dp"
+                android:layout_height="55dp"
+                android:text="DELHI" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="107dp"
+                android:layout_height="20dp"
+                android:text="DESTINATION : " />
+
+            <TextView
+                android:id="@+id/dest"
+                android:layout_width="295dp"
+                android:layout_height="55dp"
+                android:text="DELHI" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="108dp"
+                android:layout_height="match_parent"
+                android:text="REQUESTED NUMBER OF SEATS : " />
+
+            <TextView
+                android:id="@+id/req_seats"
+                android:layout_width="295dp"
+                android:layout_height="55dp"
+                android:paddingTop="15dp"
+                android:text="DELHI" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/delete_sent_Req"
+                android:layout_width="match_parent"
+                android:layout_height="78dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="DELETE REQUEST" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 </LinearLayout>

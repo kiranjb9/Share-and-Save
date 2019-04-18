@@ -3,6 +3,7 @@ package com.example.kiran.carpool.RideSeeker;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -89,5 +90,11 @@ public class Fragment2 extends Fragment {
         }
 
 
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        getActivity().setTitle("SENT REQUESTS");
     }
 }

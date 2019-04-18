@@ -1,7 +1,7 @@
-package com.example.kiran.carpool.RideSeeker.Adapters;
-
+package com.example.kiran.carpool.Riders_Adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,10 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kiran.carpool.R;
-import com.example.kiran.carpool.RideSeeker.Fragment1;
 import com.example.kiran.carpool.Util.HttpManager;
-import com.example.kiran.carpool.Util.Models.AllSentReq.AllSentReq;
 
+import com.example.kiran.carpool.Util.Models.Model_All_req;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
 import com.google.gson.Gson;
 
@@ -26,23 +25,21 @@ import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class Reqsent extends ArrayAdapter<AllSentReq> {
-    RiderPosts ride;
-    AllSentReq all;
-
-
+public class All_Requests_Adapters extends ArrayAdapter<Model_All_req>{
+    Model_All_req ride;
     String num_seats;
     int vg;
     String req_for_post;
     String result,postid;
-    Button req,request,cancel;
+    String user_id;
+    Button Delete,Accept;
     Spinner spinner;
-    List<AllSentReq> userList;
+    List<Model_All_req> userList;
     ArrayAdapter<CharSequence> adapter1;
 
     Context context;
 
-    public Reqsent(Context context, int activity, List<AllSentReq> list){
+    public All_Requests_Adapters(Context context, int activity, List<Model_All_req> list){
 
         super(context,activity,list);
 
@@ -60,11 +57,15 @@ public class Reqsent extends ArrayAdapter<AllSentReq> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         final View itemView = inflater.inflate(vg, parent, false);
-        AllSentReq p = userList.get(position);
+
+        Delete = itemView.findViewById(R.id.deleteId);
+        Accept = itemView.findViewById(R.id.acceptId);
+        Model_All_req p = userList.get(position);
         System.out.println("Position "+position);
 
+        TextView req_txt1=itemView.findViewById(R.id.txtReq1);
+        TextView req_txt2=itemView.findViewById(R.id.txtReq2);
 
         TextView txt2=itemView.findViewById(R.id.clickableName);
         TextView txt3=itemView.findViewById(R.id.clickablePost);
@@ -75,27 +76,25 @@ public class Reqsent extends ArrayAdapter<AllSentReq> {
 
 
         try {
-//            Toast.makeText(getContext(),"entered try",Toast.LENGTH_SHORT).show();
-
-                txt2.setText(p.getFname()+" "+p.getLname() +" for the ");
-                txt3.setText(" Post ");
-                textSource.setText(p.getSource());
-                textDest.setText(p.getDestination());
-                textSeats.setText(p.getSeats_requested());
-            } catch (Exception e) {
+            req_txt1.setText("You recieved a Request from " + p.getFname() + " " + p.getLname() + "for your Ride");
+            req_txt2.setText( "Post" );
 
 
-                System.out.println("ERROR" + e);
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
 
 
-        txt3.setOnClickListener(new View.OnClickListener() {
+            System.out.println("ERROR" + e);
+            e.printStackTrace();
+        }
+
+        Delete.setTag(position);
+
+        Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                LinearLayout l = itemView.findViewById(R.id.LinearPost);
-                l.setVisibility(View.VISIBLE);
+                int position = (Integer) itemView.getTag();
+                Model_All_req user = getItem(position);
 
             }
         }  );
@@ -112,7 +111,7 @@ public class Reqsent extends ArrayAdapter<AllSentReq> {
             Gson gson = new Gson();
             String userJson = gson.toJson(ride, RiderPosts.class);
             System.out.println("User Json - " + userJson);
-            result = HttpManager.getData(context.getResources().getString(R.string.serviceUrl)+"/requesting/"+postid+"/"+req_for_post+"/"+num_seats);
+            result = HttpManager.getData(context.getResources().getString(R.string.serviceUrl)+"/Accept/"+user_id+"/"+user_who_sent_id+"/"+obj_id);
             System.out.println("Result - " + result);
 
             return result;
@@ -129,7 +128,7 @@ public class Reqsent extends ArrayAdapter<AllSentReq> {
             else {
                 if (userList != null && userList.size() > 0) {
                     System.out.println("USER LIST CONTENT " + userList.get(0).toString());
-                    Toast.makeText(getContext(),"REQUEST SENT",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"REQUEST SENT",Toast.LENGTH_SHORT).show();
 
 
 

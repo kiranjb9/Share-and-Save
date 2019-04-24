@@ -33,12 +33,11 @@ public class Entrypage2 extends Fragment {
         context = getActivity();
         View view = inflater.inflate(R.layout.list3, container, false);
         listV = view.findViewById(R.id.simpleListView3);
-        RegisterUser r = new RegisterUser();
+        RegisterUser1 r = new RegisterUser1();
         r.execute();
 
         return view;
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -49,10 +48,10 @@ public class Entrypage2 extends Fragment {
 
 
 
-    class RegisterUser extends AsyncTask<Void, Void, String> {
+    public  class RegisterUser1 extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... params) {
-            HttpManager httpManager = new HttpManager(getActivity());
+            HttpManager httpManager = new HttpManager(context);
             String result = HttpManager.getData(getResources().getString(R.string.serviceUrl) + "/allrequests/"+ StaticClass.getUserID());
             return result;
         }

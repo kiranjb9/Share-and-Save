@@ -64,7 +64,7 @@ public class Fragment2 extends Fragment {
 
                if (TextUtils.isEmpty(result)) {
 
-                   Toast.makeText(getContext(),"EMPTY RESULT",Toast.LENGTH_SHORT).show();
+                   Toast.makeText(context,"EMPTY RESULT",Toast.LENGTH_SHORT).show();
 
                }
 

@@ -5,6 +5,7 @@ public class Model_All_req {
 
     private String obj_id;
 
+    private String post_id;
 
     private String fname;
 
@@ -26,6 +27,13 @@ public class Model_All_req {
 
     private String Ride_postedBy;
 
+    public String getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
+    }
 
     public String getUser_who_sent_id() {
         return user_who_sent_id;

@@ -53,6 +53,8 @@ Button b;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         displaySelectedScreen(R.id.nav_menu1);
+
+
 //
 //        b=findViewById(R.id.logout);
 //        b.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +66,12 @@ Button b;
 //            }
 //        });
 
+    }
+
+    public void call(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        displaySelectedScreen(R.id.nav_menu2);
     }
     private void goLoginScreen() {
         Intent intent = new Intent(this, Login.class);
@@ -132,13 +140,17 @@ Button b;
                 fragment = new Entrypage3();break;
 
         }
-
-        //replacing the fragment
-        if (fragment != null) {
+        if (!isFinishing() ) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
         }
+        //replacing the fragment
+//        if (fragment != null) {
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.content_frame, fragment);
+//            ft.commit();
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

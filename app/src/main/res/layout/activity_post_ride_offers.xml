@@ -11,28 +11,30 @@
     tools:context=".PostRideOffers">
 
 
-
     <EditText
         android:id="@+id/editText_Source"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="51dp"
         android:layout_weight="1"
         android:ems="10"
+        android:focusable="false"
         android:hint="Source"
-        android:textSize="14sp"
+        android:clickable="false"
+
         android:inputType="none"
-        android:focusable="false"/>
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/editText_Destination"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
         android:layout_weight="1"
         android:ems="10"
+        android:focusable="false"
+        android:clickable="false"
         android:hint="Destination"
-        android:textSize="14sp"
         android:inputType="none"
-        android:focusable="false"/>
+        android:textSize="14sp" />
 
     <!--<fragment-->
         <!--android:id="@+id/place_autocomplete_fragment1"-->
@@ -91,22 +93,7 @@
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="250dp"
-            android:text="Preference for : "
-            android:layout_height="50dp" />
-        <Spinner
-            android:id="@+id/spinner2"
-            android:entries="@array/pref"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown"/>
-    </LinearLayout>
+
 
     <!--</LinearLayout>-->
 
@@ -206,6 +193,43 @@
             android:text="SELECT TIME" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/hide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estimated cost"
+        android:textColor="#bf55ec"
+        android:visibility="visible" />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:orientation="horizontal"
+      android:layout_height="wrap_content">
+
+      <ImageView
+          android:layout_width="45dp"
+          android:layout_height="34dp"
+          android:layout_marginTop="5dp"
+          android:src="@mipmap/rupee" />
+
+      <EditText
+          android:id="@+id/amount"
+          android:layout_width="75dp"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:inputType="number"
+          android:maxLength="4"
+
+          android:textColor="#96281b"
+          android:textSize="21dp" />
+
+      <TextView
+          android:layout_width="175dp"
+          android:layout_height="50dp"
+          android:text="per head"
+          android:textSize="20dp" />
+  </LinearLayout>
 
     <Button
         android:id="@+id/posts"

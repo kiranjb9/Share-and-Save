@@ -5,28 +5,36 @@ package com.example.kiran.carpool.RideSeeker.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kiran.carpool.R;
 import com.example.kiran.carpool.Util.HttpManager;
+import com.example.kiran.carpool.Util.Models.Model_All_req;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
 import com.example.kiran.carpool.Util.Models.StaticClass;
 import com.example.kiran.carpool.Util.Models.User;
+import com.example.kiran.carpool.maps.MapActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.v4.content.ContextCompat.startActivity;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -36,7 +44,10 @@ public class SearchListAdapter extends ArrayAdapter<RiderPosts> {
     int vg;
     String req_for_post;
     String result,postid;
-    Button req,request,cancel;
+    Button req;
+    List age;
+    ImageButton i;
+
     Spinner spinner;
     List<RiderPosts> userList;
     ArrayAdapter<CharSequence> adapter1;
@@ -65,6 +76,9 @@ int Position;
         View itemView = inflater.inflate(vg, parent, false);
         RiderPosts p = userList.get(position);
         req = (Button) itemView.findViewById(R.id.req);
+        i = (ImageButton) itemView.findViewById(R.id.map1);
+
+
 
         TextView Fname=itemView.findViewById(R.id.Searchname);
         TextView phno = itemView.findViewById(R.id.Searchphno);
@@ -72,6 +86,7 @@ int Position;
         TextView Datetime = itemView.findViewById(R.id.Searchdatetime);
         TextView dest = itemView.findViewById(R.id.Searchdest);
         TextView seats = itemView.findViewById(R.id.noofseats);
+        TextView money = itemView.findViewById(R.id.money);
         try {
             String id =p.getRide_postedBy().get_id();
             System.out.println("ID///////////////////////////" + id);
@@ -81,9 +96,9 @@ int Position;
             source.setText(p.getSource());
             dest.setText(p.getDestination());
             Datetime.setText(p.getDate() + "\n" + p.getTime());
+            money.setText(p.getAmount());
 
 
-            Position=position;
 
 
 
@@ -95,9 +110,44 @@ int Position;
         req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+//                int position = (Integer) v.getTag();
+//                RiderPosts user = getItem(position);
 
-                AlertDialog.Builder mbuilder = new AlertDialog.Builder(getContext());
                 View mview = inflater.inflate(R.layout.dialogue_layout,null);
+//              int  s = Integer.parseInt(user.getSeats());
+                AlertDialog.Builder mbuilder = new AlertDialog.Builder(getContext());
+//                age = new ArrayList<>();
+//                for (int i = 1; i <= s; i++) {
+//                    age.add(i);
+//                }
+//
+////                ArrayAdapter<Integer> sa= new ArrayAdapter<Integer>(
+////                        context, android.R.layout.simple_spinner_item, age);
+////                sa.setDropDownViewResource(
+////                        android.R.layout.simple_spinner_dropdown_item );
+////                spinner.setAdapter(sa);
+////                adapter1.
+////                adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+////                spinner.setAdapter(age);
+//                spinner = mview.findViewById(R.id.req_sp1);
+//                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
+//
+//                        System.out.println("pos1" + parent.getSelectedItemId());
+//                        Toast.makeText(context, parent.getItemAtPosition(pos) + " slected ", ((Toast.LENGTH_LONG)/2)).show();
+//
+//                    }
+//
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                    }
+//                });
+//
+
+
                 mbuilder.setTitle("Number of seats you wanna request");
                 spinner = (Spinner) mview.findViewById(R.id.req_sp1);
 
@@ -135,7 +185,31 @@ int Position;
                 dialog.show();
             }
         });
+        i.setTag(position);
+        i.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                int position = (Integer) v.getTag();
+                // Access the row position here to get the correct data item
+                ride  = getItem(position);
+
+                Intent myIntent = new Intent(context, MapActivity.class);
+                Bundle extras = new Bundle();
+
+                extras.putDouble("s1", Double.parseDouble(ride.getSoure_lat()));
+
+                extras.putDouble("s2", Double.parseDouble(ride.getSoure_long()));
+
+                extras.putDouble("d1", Double.parseDouble(ride.getDest_lat()));
+
+                extras.putDouble("d2", Double.parseDouble(ride.getDest_long()));
+
+                myIntent.putExtras(extras);
+                System.out.println();
+                context.startActivity(myIntent);
+            }
+        });
         return itemView;
 
     }

@@ -12,6 +12,7 @@ import com.facebook.appevents.AppEventsLogger;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -199,7 +200,30 @@ public class Login extends AppCompatActivity {
 
             if (result != null && !result.isEmpty()) {
 
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("id",jresponse.optString("_id"));
+                editor.putString("fname",jresponse.optString("fname"));
+                editor.putString("lname",jresponse.optString("lname"));
+                editor.putString("email",jresponse.optString("email"));
+                editor.putString("phno",jresponse.optString("mobilenumber"));
+
+                editor.putBoolean("isLoginKey",true);
+                editor.commit();
+
+
                 Intent myIntent = new Intent(Login.this, StartPage.class);
+                Bundle bundle = new Bundle();
+//
+//                bundle.putString("_id", jresponse.optString("_id"));
+//                bundle.putString("email", jresponse.optString("email"));
+//                bundle.putString("phno", jresponse.optString("mobilenumber"));
+//                bundle.putString("Fname", jresponse.optString("fname"));
+//                bundle.putString("Lname", jresponse.optString("lname"));
+//
+//                myIntent.putExtras(bundle);
+
                 startActivity(myIntent);
             }
             if (TextUtils.isEmpty(result)) {

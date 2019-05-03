@@ -12,13 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.kiran.carpool.Login;
 import com.example.kiran.carpool.R;
 import com.example.kiran.carpool.RideSeeker.Adapters.SearchListAdapter;
+import com.example.kiran.carpool.StartPage;
 import com.example.kiran.carpool.Util.HttpManager;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
+import com.example.kiran.carpool.maps.MapActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -36,7 +42,7 @@ import static android.app.Activity.RESULT_OK;
 public class Fragment1 extends Fragment  {
     Button search;
     Spinner spinner;
-
+    Button i;
     Button req;
     String req_for_post;
     String result,postid;
@@ -66,6 +72,7 @@ public class Fragment1 extends Fragment  {
         listV = view.findViewById(R.id.simpleListView2);
         context = getActivity();
 
+        //draw path
 
 
 
@@ -135,14 +142,21 @@ public class Fragment1 extends Fragment  {
         });
 
 
+
         //returning view
+
+
+
         return view;
 
 
     }
 
 
-
+    public void getMap(View v) {
+        Intent myIntent = new Intent(v.getContext(), MapActivity.class);
+        startActivity(myIntent);
+    }
 
 
     //setting edit text of source & dest

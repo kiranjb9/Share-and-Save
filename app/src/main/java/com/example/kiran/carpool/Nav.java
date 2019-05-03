@@ -1,6 +1,7 @@
 package com.example.kiran.carpool;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -24,13 +26,12 @@ import com.facebook.login.LoginManager;
 public class Nav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 Button b;
+    SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
-
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,16 +56,34 @@ Button b;
         displaySelectedScreen(R.id.nav_menu1);
 
 
-//
-//        b=findViewById(R.id.logout);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (AccessToken.getCurrentAccessToken() == null) {
-//                    goLoginScreen();
-//                }
-//            }
-//        });
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_nav);
+        TextView name =headerView.findViewById(R.id.name);
+        TextView mail =headerView.findViewById(R.id.emailid);
+        TextView phno =headerView.findViewById(R.id.phno);
+
+
+//        Intent intent = getIntent();
+//        Bundle bundle1 = intent.getExtras();
+       pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+
+        name.setText(pref.getString("fname","") + " " + pref.getString("lname",""));
+        mail.setText(pref.getString("email",""));
+        phno.setText(pref.getString("phno",""));
+
+
+
+        b=headerView.findViewById(R.id.logout);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                Intent myIntent = new Intent(Nav.this, Login.class);
+                startActivity(myIntent);
+            }
+        });
 
     }
 

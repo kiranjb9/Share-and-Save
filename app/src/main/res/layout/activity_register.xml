@@ -7,6 +7,15 @@
     android:paddingBottom="83dp"
     tools:context=".Register">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="183dp"
+        android:layout_height="156dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="1dp"
+        android:src="@mipmap/pro"
+
+        />
 
     <EditText
         android:id="@+id/FirstName"

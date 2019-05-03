@@ -47,49 +47,77 @@
         </LinearLayout>
 
         <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:background="@color/colorPrimaryDark"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Searchsource"
+            android:layout_width="137dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            android:gravity="start"
+            android:text="DELHI"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/noofseats"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@mipmap/seats"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingRight="13dp"
+            android:text="4"
+            android:textSize="20dp" />
+
+
+
+        <TextView
+            android:id="@+id/Searchdest"
+            android:layout_width="140dp"
+            android:layout_height="77dp"
+            android:layout_marginLeft="12dp"
+            android:gravity="start"
+            android:text="DELHI"
+            android:textAlignment="center" />
+
+
+
+    </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="87dp"
+            android:layout_height="53dp"
             android:background="@color/colorPrimaryDark"
 
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/Searchsource"
-                android:layout_width="137dp"
-                android:layout_height="74dp"
-                android:layout_gravity="center"
-                android:gravity="start"
-                android:text="DELHI"
-                android:textAlignment="center" />
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/rupee" />
 
             <TextView
-                android:id="@+id/noofseats"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="8dp"
-                android:background="@mipmap/seats"
-                android:gravity="center"
-                android:paddingBottom="11dp"
-                android:paddingRight="13dp"
-                android:text="4"
-                android:textSize="20dp" />
+                android:id="@+id/money"
+                android:layout_width="114dp"
+                android:text="2000"
+                android:textColor="#96281b"
+                android:textSize="35dp"
+                android:layout_height="48dp" />
 
-
-
-            <TextView
-                android:id="@+id/Searchdest"
-                android:layout_width="140dp"
-                android:layout_height="77dp"
-                android:layout_marginLeft="12dp"
-                android:gravity="start"
-                android:text="DELHI"
-                android:textAlignment="center" />
-
-
+            <ImageButton
+                android:id="@+id/map1"
+                android:layout_width="67dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="130dp"
+                android:background="@mipmap/maps" />
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="88dp"

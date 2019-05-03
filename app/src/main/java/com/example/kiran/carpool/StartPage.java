@@ -1,6 +1,7 @@
 package com.example.kiran.carpool;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,14 +20,25 @@ Button b1,b2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
-
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        Bundle bundle1 = intent.getExtras();
         b1 = findViewById(R.id.btn_rideoffer);
         b2 = findViewById(R.id.btn_needRide);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+//                bundle1.putString("_id", bundle.getString("_id"));
+//                bundle1.putString("email", bundle.getString("email"));
+//                bundle1.putString("phno", bundle.getString("phno"));
+//                bundle1.putString("Fname", bundle.getString("Fname"));
+//                bundle1.putString("Lname", bundle.getString("Lname"));
                 Intent myIntent = new Intent(StartPage.this, Nav.class);
+//                myIntent.putExtras(bundle1);
                 startActivity(myIntent);
 
             }
@@ -57,5 +69,7 @@ Button b1,b2;
         request.setParameters(parameters);
         request.executeAsync();
         System.out.println(parameters.getString("fields"+"              00000000000000000000000000"));
+
+
     }
 }

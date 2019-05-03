@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -28,7 +29,13 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PostRideOffers extends AppCompatActivity {
     Spinner sp1,sp2;
@@ -39,19 +46,23 @@ public class PostRideOffers extends AppCompatActivity {
     int year;
     int month;
     int dayOfMonth;
+    String durationText;
+    String distanceText;
     Calendar calendar;
     boolean EdittextCheck;
     //holds value from UI to send it asynctask
-    String source, dest, sourceLat,sourcelng, destLat,destLong,DATE,TIME,SEATS,PREF;
+    String source, dest, sourceLat,sourcelng, destLat,destLong,DATE,TIME,SEATS,amount;
+    TextView txt1;
 
-    EditText chooseTime;
+    EditText chooseTime,amt;
     TimePickerDialog timePickerDialog;
     int currentHour;
     int currentMinute;
-
+    LatLng latLng1, latLng2;
+    private static final String API_KEY = "AIzaSyCFz3q92Zyd5Ia1aAR1TU2L3rzXq8UAuI4";
 
     RiderPosts ride = new RiderPosts();
-StaticClass s =new StaticClass();
+    StaticClass staticClass =new StaticClass();
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private EditText editTextSource, editTextDestination;
     private String TAG = "CreateRide";
@@ -81,27 +92,6 @@ StaticClass s =new StaticClass();
             }
         });
 
-        //spinner2
-        sp2=(Spinner) findViewById(R.id.spinner2);
-        adapter2 = ArrayAdapter.createFromResource(this, R.array.pref, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp2.setAdapter(adapter2);
-        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-                PREF=  sp2.getSelectedItem().toString();
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(pos) + " slected ", ((Toast.LENGTH_LONG)/2)).show();
-
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        System.out.println("PREF Seats " +SEATS +" /////////////////" + PREF );
 
         editTextDestination = (EditText)findViewById(R.id.editText_Destination);
         editTextDestination.setOnClickListener(new View.OnClickListener() {
@@ -135,23 +125,27 @@ StaticClass s =new StaticClass();
                     }
                 }
             });
+            amt = findViewById(R.id.amount);
 
+            amt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txt1 = findViewById(R.id.hide);
+                    txt1.setVisibility(View.GONE);
 
-        //Setting results of source or destination
+                }
+            });
 
-
-            //Destination auto complete
-
-
-
-
-
+        txt1 = findViewById(R.id.hide);
+        txt1.setVisibility(View.VISIBLE);
         //Date Picker
         selectDate = findViewById(R.id.btnDate);
         date = findViewById(R.id.tvSelectedDate);
         date.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                dist();
                 calendar = Calendar.getInstance();
                 year = calendar.get(Calendar.YEAR);
                 month = calendar.get(Calendar.MONTH);
@@ -174,6 +168,8 @@ StaticClass s =new StaticClass();
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dist();
+
                 calendar = Calendar.getInstance();
                 year = calendar.get(Calendar.YEAR);
                 month = calendar.get(Calendar.MONTH);
@@ -200,6 +196,7 @@ StaticClass s =new StaticClass();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 calendar = Calendar.getInstance();
                 currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 currentMinute = calendar.get(Calendar.MINUTE);
@@ -262,98 +259,26 @@ StaticClass s =new StaticClass();
                 }
                 }
                 private Boolean check(){
-
+                    amount =amt.getText().toString();
                     ride.setSoure_lat(sourceLat);
                     ride.setSoure_long(sourcelng);
                     ride.setDest_lat(destLat);
                     ride.setDest_long(destLong);
                     ride.setSource(source);
+                    ride.setAmount(amount);
                     ride.setDestination(dest);
-             ride.setSeats(SEATS);
-             ride.setPreference(PREF);
+                    ride.setSeats(SEATS);
+
              ride.setDate(DATE);
              ride.setTime(TIME);
-             ride.setUserid(s.getUserID());
+             System.out.print("id is " +staticClass.getUserID());
+             ride.setUserid(staticClass.getUserID());
+             ride.setDistance(distanceText);
+             ride.setDuration(durationText);
                     return true;
                 }
             });
-//        dropdown = findViewById(R.id.spinner1);
-////create a list of items for the spinner.
-//        String[] items = new String[]{"0","1", "2", "3","4","5"};
-////create an adapter to describe how the items are displayed, adapters are used in several places in android.
-////There are multiple variations of this, but this is the basic variant.
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-////set the spinners adapter to the previously created one.
-//        dropdown.setAdapter(adapter);
 
-
-
-
-
-            //Radio button
-//        radio2 = findViewById(R.id.radio2);
-//        radio1 = findViewById(R.id.radio1);
-//
-//
-//        radio1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                findViewById(R.id.layout1).setVisibility(View.GONE);
-//                findViewById(R.id.one).setVisibility(View.GONE);
-//                findViewById(R.id.two).setVisibility(View.GONE);
-//                findViewById(R.id.three).setVisibility(View.GONE);
-//                findViewById(R.id.four).setVisibility(View.GONE);
-//                findViewById(R.id.five).setVisibility(View.GONE);}
-//
-//
-//        });
-//        radio2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                findViewById(R.id.layout1).setVisibility(View.VISIBLE);
-//            }
-//
-//            });
-//
-//        int  length = Integer.parseInt(dropdown.getSelectedItem().toString());
-//
-//
-//        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                int  length = Integer.parseInt(parentView.getSelectedItem().toString());
-//
-//                findViewById(R.id.one).setVisibility(View.GONE);
-//                findViewById(R.id.two).setVisibility(View.GONE);
-//                findViewById(R.id.three).setVisibility(View.GONE);
-//                findViewById(R.id.four).setVisibility(View.GONE);
-//                findViewById(R.id.five).setVisibility(View.GONE);
-//            if (length==0)
-//            {
-//                findViewById(R.id.one).setVisibility(View.GONE);
-//                findViewById(R.id.two).setVisibility(View.GONE);
-//                findViewById(R.id.three).setVisibility(View.GONE);
-//                findViewById(R.id.four).setVisibility(View.GONE);
-//                findViewById(R.id.five).setVisibility(View.GONE);
-//            }
-//            if(length==1) findViewById(R.id.one).setVisibility(View.VISIBLE);
-//                if(length==2) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);}
-//                if(length==3) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);}
-//                if(length==4) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);findViewById(R.id.four).setVisibility(View.VISIBLE);}
-//                if(length==5) {findViewById(R.id.one).setVisibility(View.VISIBLE); findViewById(R.id.two).setVisibility(View.VISIBLE);findViewById(R.id.three).setVisibility(View.VISIBLE);findViewById(R.id.four).setVisibility(View.VISIBLE);findViewById(R.id.five).setVisibility(View.VISIBLE);}
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//
-//
-//
-//        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -364,9 +289,9 @@ StaticClass s =new StaticClass();
                 if(EdittextCheck==false) {
                     editTextSource.setText(place.getName().toString());
                     if (place != null) {
-                        LatLng latLng = place.getLatLng();
-                        sourceLat = String.valueOf(latLng.latitude);
-                        sourcelng = String.valueOf(latLng.longitude);
+                        latLng1 = place.getLatLng();
+                        sourceLat = String.valueOf(latLng1.latitude);
+                        sourcelng = String.valueOf(latLng1.longitude);
                         source = place.getAddress().toString();
                     }
                 }
@@ -374,12 +299,14 @@ StaticClass s =new StaticClass();
                 if(EdittextCheck==true){
                     editTextDestination.setText(place.getName().toString());
                     if (place != null) {
-                        LatLng latLng = place.getLatLng();
-                        destLat = String.valueOf(latLng.latitude);
-                        destLong = String.valueOf(latLng.longitude);
+                         latLng2 = place.getLatLng();
+                        destLat = String.valueOf(latLng2.latitude);
+                        destLong = String.valueOf(latLng2.longitude);
                         dest = place.getAddress().toString();
                     }
                 }
+
+
 
             }
 
@@ -391,7 +318,40 @@ StaticClass s =new StaticClass();
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }}
+        }
+
+
+    }
+
+    private void dist() {
+        System.out.println("FUNCTION1");
+        String url = getDirectionsUrl();
+        new GetDisDur().execute(url);
+
+
+    }
+
+    private String getDirectionsUrl() {
+        System.out.println("FUNCTION2");
+
+        String str_origin = "origin=" + sourceLat + "," + sourcelng;
+
+        String str_dest = "destination=" + destLat + "," + destLong;
+
+//        String sensor = "sensor=false";
+//
+//        String mode = "mode=driving";
+
+        String parameters = str_origin + "&" + str_dest + "&key=" +getString(R.string.serverkey);
+
+//                + "&"  + sensor + "&" + mode;
+
+        String output = "json";
+
+        return "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+    }
+
+
 
     private void SetTimeVariable(String time) {
         TIME = time;
@@ -427,5 +387,100 @@ StaticClass s =new StaticClass();
         }
 
 
+    }
+
+
+
+    //Direction Api class
+
+    private class GetDisDur extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+
+            String data = "";
+            System.out.println("Asynk");
+            try {
+                 data = HttpManager.getData(url[0]);
+
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+
+            }
+
+            System.out.println("DATA " + data);
+
+            return data;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            System.out.println("RESULT " + result);
+            if (result != null && !result.isEmpty()) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+                    JSONArray routes = jsonObject.getJSONArray("routes");
+
+                    JSONObject routes1 = routes.getJSONObject(0);
+
+                    JSONArray legs = routes1.getJSONArray("legs");
+
+                    JSONObject legs1 = legs.getJSONObject(0);
+
+                    JSONObject distance = legs1.getJSONObject("distance");
+
+                    JSONObject duration = legs1.getJSONObject("duration");
+
+                    distanceText = distance.getString("text");
+
+                    durationText = duration.getString("text");
+
+                        String pattern = "([^\\s]+)";
+
+                        // Create a Pattern object
+                        Pattern r = Pattern.compile(pattern);
+
+                        Matcher m = r.matcher(distanceText);
+
+                        if (m.find()) {
+                            distanceText = m.group(0);
+                            distanceText=   distanceText.replaceAll("[,;\\s]", "");
+                            System.out.println("Found value: " + m.group(0));
+
+                        } else {
+                            System.out.println("NO MATCH");
+                        }
+                        System.out.println(" Finally distance is " + distanceText + "   " + durationText);
+
+
+                      try{
+                          int s = (int) (4.11 * (Float.parseFloat(distanceText)));
+                          System.out.println("amount " + Double.toString(s));
+                          amt = findViewById(R.id.amount);
+                          amt.setHint(Double.toString(s));
+
+                      }
+
+                      catch (Exception e){
+
+                          System.out.println("Exception " + e);
+                      }
+
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else {
+                Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_SHORT);
+            }
+        }
     }
 }

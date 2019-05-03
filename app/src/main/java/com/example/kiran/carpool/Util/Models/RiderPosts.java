@@ -13,10 +13,30 @@ public class RiderPosts {
     private String date;
     private String time;
     private String seats;
-    private String preference;
     private String _id;
     private  String userid;
     private User Ride_postedBy;
+
+    private String amount;
+    private String distance;
+    private String duration;
+
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
 
     public String getUserid() {
         return userid;
@@ -114,13 +134,11 @@ public class RiderPosts {
         this.seats = seats;
     }
 
-    public String getPreference() {
-        return preference;
+    public String getAmount() {
+        return amount;
     }
 
-    public void setPreference(String preference) {
-        this.preference = preference;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
-
-
 }

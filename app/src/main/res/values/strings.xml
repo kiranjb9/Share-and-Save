@@ -64,5 +64,9 @@
 
     <string name="title_profile">Profile</string>
     <string name="app_namee"><![CDATA[Share&Save]]></string>
+    <string name="google_maps_key">AIzaSyDkinnKh6WFBK3H6iHdFcy8ORXnisG5u1s</string>
+
+    <string name="serverkey">AIzaSyAfcTzQD8HHgGosNqas1TF6R3UacJriDus</string>
+
 
 </resources>

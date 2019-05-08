@@ -51,7 +51,7 @@ public class PostRideOffers extends AppCompatActivity {
     Calendar calendar;
     boolean EdittextCheck;
     //holds value from UI to send it asynctask
-    String source, dest, sourceLat,sourcelng, destLat,destLong,DATE,TIME,SEATS,amount;
+    String source,sourceName, dest,destName, sourceLat,sourcelng, destLat,destLong,DATE,TIME,SEATS,amount;
     TextView txt1;
 
     EditText chooseTime,amt;
@@ -262,6 +262,9 @@ public class PostRideOffers extends AppCompatActivity {
                     amount =amt.getText().toString();
                     ride.setSoure_lat(sourceLat);
                     ride.setSoure_long(sourcelng);
+                    ride.setSourceName(sourceName);
+                    ride.setDestinationName(destName);
+
                     ride.setDest_lat(destLat);
                     ride.setDest_long(destLong);
                     ride.setSource(source);
@@ -293,6 +296,7 @@ public class PostRideOffers extends AppCompatActivity {
                         sourceLat = String.valueOf(latLng1.latitude);
                         sourcelng = String.valueOf(latLng1.longitude);
                         source = place.getAddress().toString();
+                        sourceName =place.getName().toString();
                     }
                 }
 
@@ -303,6 +307,7 @@ public class PostRideOffers extends AppCompatActivity {
                         destLat = String.valueOf(latLng2.latitude);
                         destLong = String.valueOf(latLng2.longitude);
                         dest = place.getAddress().toString();
+                        destName =place.getName().toString();
                     }
                 }
 

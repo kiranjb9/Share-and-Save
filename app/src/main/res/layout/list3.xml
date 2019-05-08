@@ -14,7 +14,7 @@
             android:id="@+id/simpleListView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="#000"
+            android:divider="#f2f1ef"
             android:dividerHeight="2dp" />
 
 </RelativeLayout></LinearLayout>

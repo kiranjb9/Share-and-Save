@@ -2,10 +2,15 @@ package com.example.kiran.carpool;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.kiran.carpool.RideSeeker.MainActivity;
 import com.facebook.AccessToken;
@@ -14,8 +19,11 @@ import com.facebook.GraphResponse;
 
 import org.json.JSONObject;
 
+import java.io.InputStream;
+
 public class StartPage extends AppCompatActivity {
-Button b1,b2;
+    Button b1, b2;
+    SharedPreferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +37,6 @@ Button b1,b2;
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
 
 //                bundle1.putString("_id", bundle.getString("_id"));
@@ -54,22 +61,51 @@ Button b1,b2;
         });
 
 
-        GraphRequest request = GraphRequest.newMeRequest(
-                AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        // Insert your code here
-                    }
-                });
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                // Insert your code here
+            }
+        });
 
         Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name");
 
         request.setParameters(parameters);
         request.executeAsync();
-        System.out.println(parameters.getString("fields"+"              00000000000000000000000000"));
+        System.out.println(parameters.getString("fields" + "              00000000000000000000000000"));
 
+        //image download
+        pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        String u = getResources().getString(R.string.serviceUrl)+"/images/"+ pref.getString("id","")+".jpg";
+        System.out.println(u);
+        new DownloadImageTask( findViewById(R.id.profile_image))
+                .execute(u);
 
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

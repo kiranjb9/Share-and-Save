@@ -4,6 +4,9 @@ public class RiderPosts {
 
     private String source;
     private String destination;
+    private String sourceName;
+    private String destinationName;
+
     private String soure_lat;
     private String soure_long;
     private String dest_lat;
@@ -21,6 +24,21 @@ public class RiderPosts {
     private String distance;
     private String duration;
 
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
+    public String getDestinationName() {
+        return destinationName;
+    }
+
+    public void setDestinationName(String destinationName) {
+        this.destinationName = destinationName;
+    }
 
     public String getDuration() {
         return duration;

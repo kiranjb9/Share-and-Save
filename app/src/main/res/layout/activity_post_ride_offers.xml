@@ -152,6 +152,7 @@
         <EditText
             android:id="@+id/tvSelectedDate"
             android:layout_width="200dp"
+            android:hint="DATE"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -165,16 +166,19 @@
 
         <Button
             android:id="@+id/btnDate"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvSelectedDate"
             android:layout_toEndOf="@+id/tvSelectedDate"
+            android:background="@mipmap/calender"
             android:layout_toRightOf="@+id/tvSelectedDate"
-            android:text="SELECT DATE" />
+            />
 
         <EditText
             android:id="@+id/etChooseTime"
             android:layout_width="200dp"
+            android:hint="TIME"
+
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvSelectedDate"
             android:layout_alignParentStart="true"
@@ -185,12 +189,13 @@
 
         <Button
             android:id="@+id/btn_time"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnDate"
             android:layout_alignStart="@+id/btnDate"
             android:layout_alignLeft="@+id/btnDate"
-            android:text="SELECT TIME" />
+            android:background="@mipmap/time"
+         />
 
     </RelativeLayout>
 

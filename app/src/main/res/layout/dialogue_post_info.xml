@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='utf-8'?>
+<LinearLayout xmlns:android='http://schemas.android.com/apk/res/android'
+    android:layout_width='fill_parent'
+    android:layout_height='fill_parent'
+    android:orientation='vertical'
+    android:background="#2e3131"
+    android:padding='10sp' >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_width="142dp"
+        android:layout_height="match_parent"
+        android:text="source name :"
+        android:textColor="#f2f1ef"
+        android:textSize="20dp"
+
+        />
+
+    <TextView
+        android:id="@+id/Sname"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:text="RAMDEV "
+
+        android:textColor="#f2f1ef"
+        android:textSize="20dp"
+
+        />
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="142dp"
+            android:layout_height="match_parent"
+            android:text="Dest name :"
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/Dname"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="Dominos"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Complete Source Adress"
+            android:textColor="#f2f1ef"
+            android:textSize="15dp"
+
+            />
+
+        <TextView
+            android:id="@+id/Sadress"
+            android:layout_width="298dp"
+            android:layout_height="match_parent"
+            android:text="source name :"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:text="Complete Destination Adress"
+            android:textColor="#f2f1ef"
+            android:textSize="15dp"
+
+            />
+
+        <TextView
+            android:id="@+id/Dadress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="source name :"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="142dp"
+            android:layout_height="match_parent"
+            android:text="Date :"
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="22/22/22"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="142dp"
+            android:layout_height="match_parent"
+            android:text="Time :"
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="source name :"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="Seats :"
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/seats"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="4"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="142dp"
+            android:layout_height="match_parent"
+            android:text="Cost per Head :"
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="50"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="142dp"
+            android:layout_height="match_parent"
+            android:text="Distane : "
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="25 KM"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="142dp"
+            android:layout_height="match_parent"
+            android:text="Duration : "
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="18 min"
+
+            android:textColor="#f2f1ef"
+            android:textSize="20dp"
+
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>

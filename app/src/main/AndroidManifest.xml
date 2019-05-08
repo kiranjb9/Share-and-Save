@@ -20,16 +20,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Decide_logged_in_or_not">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
-        <activity android:name=".maps.MapActivity"></activity>
+        <activity android:name=".UpdateUser"></activity>
+        <activity
+            android:name=".Review"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".Decide_logged_in_or_not"></activity>
+        <activity android:name=".maps.MapActivity" />
         <activity
             android:name=".RideSeeker.MainActivity"
             android:label="@string/title_activity_main" />
@@ -41,7 +37,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Register" />
         <activity android:name=".Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

@@ -275,8 +275,6 @@ public class Fragment1 extends Fragment  {
 
                 }
 
-            //dialog box
-
 
         }
 

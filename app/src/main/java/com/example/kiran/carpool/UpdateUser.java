@@ -6,19 +6,22 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,24 +30,17 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.example.kiran.carpool.Util.HttpManager;
+import com.example.kiran.carpool.Util.Models.StaticClass;
 import com.example.kiran.carpool.Util.Models.User;
-import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.text.SimpleDateFormat;
+import java.io.InputStream;
 import java.util.Calendar;
-import java.util.Date;
-
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -56,14 +52,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Register extends AppCompatActivity {
+public class UpdateUser extends AppCompatActivity {
+    SharedPreferences pref;
     private static final int PICK_IMAGE = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_MEDIA = 1;
     Button button;
     Uri selectedImageUri=null;
     Calendar calendar;
-    String gender;
-    File file;
+    String gender =null;
+    File file;String responseBodyString;
     EditText fname, lname, email, mobilenumber,pass;
     String result;
     String Vfname,Vlname,Vemail,Vmobile,Vpass,Vadress,DATE,TIME;
@@ -76,13 +73,14 @@ public class Register extends AppCompatActivity {
     int currentMinute;
     int month;
     int dayOfMonth;
+    JSONObject jresponse = null;
     final User newUser = new User();
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.update_user);
         context = getApplicationContext();
 
         if (ContextCompat.checkSelfPermission(this,
@@ -113,6 +111,7 @@ public class Register extends AppCompatActivity {
 
 
 
+
         EditText e= findViewById(R.id.Adress);
         fname= (EditText) findViewById(R.id.FirstName);
         lname= (EditText) findViewById(R.id.LastName);
@@ -125,6 +124,16 @@ public class Register extends AppCompatActivity {
         TextView selectedDate = findViewById(R.id.calenderDate);
 
 
+        pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+
+        fname.setText(pref.getString("fname",""));
+        lname.setText(pref.getString("lname",""));
+        mobilenumber.setText(pref.getString("phno",""));
+        email.setText(pref.getString("email",""));
+        e.setText((pref.getString("adress","")));
+        selectedDate.setText((pref.getString("DOB","")));
+        pass.setText((pref.getString("pass","")));
+        DATE  = pref.getString("DOB", "");
 
 
         //profile pic
@@ -149,7 +158,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
-                 gender = radioButton.getText().toString();
+                gender = radioButton.getText().toString();
             }
         });
 
@@ -186,13 +195,17 @@ public class Register extends AppCompatActivity {
                 Vemail = email.getText().toString();
                 Vpass = pass.getText().toString();
                 Vmobile = mobilenumber.getText().toString();
+                Vpass = pass.getText().toString();
+                if(gender == null){
+                    TextInputLayout T = (TextInputLayout) findViewById(R.id.tilGender);
 
+                    T.setError("Please Select a gender");
+                    return  false;
+                }
                 return true;
             }
         });
 
-
-        //Date Picker
 
         selectDate.setOnClickListener(new View.OnClickListener() {
 
@@ -203,7 +216,7 @@ public class Register extends AppCompatActivity {
                 year = calendar.get(Calendar.YEAR);
                 month = calendar.get(Calendar.MONTH);
                 dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-                datePickerDialog = new DatePickerDialog(Register.this,
+                datePickerDialog = new DatePickerDialog(UpdateUser.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -221,7 +234,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                datePickerDialog = new DatePickerDialog(Register.this,
+                datePickerDialog = new DatePickerDialog(UpdateUser.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -233,11 +246,38 @@ public class Register extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
+        pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        String u = getResources().getString(R.string.serviceUrl)+"/images/"+ pref.getString("id","")+".jpg";
+        System.out.println(u);
+        new DownloadImageTask( findViewById(R.id.profile_image))
+                .execute(u);
 
     }
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
 
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 
     public Boolean uploadFile(String imageName , File image) {
         try {
@@ -248,9 +288,9 @@ public class Register extends AppCompatActivity {
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("image", imageName, RequestBody.create(MediaType.parse("image/png"), image))
                     .build();
-            String u= getResources().getString(R.string.serviceUrl)+"/insertUserData/"+Vfname+"/"+Vlname+"/"+Vmobile+"/"+Vemail+"/"+Vpass+"/"+DATE+"/"+gender+"/"+Vadress;
+            String u= getResources().getString(R.string.serviceUrl)+"/UpdateUserData/"+ StaticClass.getUserID() + "/" +Vfname+"/"+Vlname+"/"+Vemail+"/"+Vmobile+"/"+Vpass+"/"+DATE+"/"+gender+"/"+Vadress;
             System.out.println("URL is  : "+ u);
-                        Request request = new Request.Builder()
+            Request request = new Request.Builder()
                     .url(u)
                     .post(requestBody)
                     .build();
@@ -260,31 +300,75 @@ public class Register extends AppCompatActivity {
                 @Override
                 public void onFailure(final Call call, final IOException e) {
 
-                    Register.this.runOnUiThread(new Runnable() {
+                    UpdateUser.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             //Handle UI here
-                            Intent myIntent = new Intent(Register.this, StartPage.class);
-                            startActivity(myIntent);                        }
+                            Intent myIntent = new Intent(UpdateUser.this, StartPage.class);
+                            startActivity(myIntent);
+
+                        }
                     });
                 }
 
                 @Override
                 public void onResponse(final Call call, final Response response) throws IOException {
 
-                    Register.this.runOnUiThread(new Runnable() {
+                    UpdateUser.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if(response.code()==200){
-                                Intent myIntent = new Intent(Register.this, Login.class);
-                                startActivity(myIntent);
+                                pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+                                SharedPreferences.Editor editor1 = pref.edit();
+                                try {
+                                    responseBodyString = response.body().string();
+
+                                    editor1.clear();
+                                    editor1.commit();
+
+
+                                    jresponse = new JSONObject(responseBodyString);
+                                    System.out.println(jresponse.optString("_id")+ "////////////////////////////////////"+jresponse.optString("mobilenumber"));
+
+                                    editor1.putString("id",jresponse.optString("_id"));
+                                    editor1.putString("fname",jresponse.optString("fname"));
+                                    editor1.putString("lname",jresponse.optString("lname"));
+                                    editor1.putString("email",jresponse.optString("email"));
+                                    editor1.putString("DOB",jresponse.optString("DOB"));
+
+                                    editor1.putString("adress",jresponse.optString("adress"));
+
+                                    editor1.putString("gender",jresponse.optString("gender"));
+                                    editor1.putString("phno",jresponse.optString("mobilenumber"));
+                                    editor1.putString("imageID",jresponse.optString("image_id"));
+                                    editor1.putString("pass",jresponse.optString("pass"));
+
+
+                                    editor1.putBoolean("isLoginKey",true);
+                                    editor1.commit();
+                                    Intent myIntent = new Intent(UpdateUser.this, Review.class);
+                                    startActivity(myIntent);
+
+
+
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+//                                         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+//                                        SharedPreferences.Editor editor = pref.edit();
+
                             }
 
 
 
 
 
-                                                    }
+                        }
                     });
 
 
@@ -308,16 +392,16 @@ public class Register extends AppCompatActivity {
             if (data == null) {
                 TextInputLayout T = (TextInputLayout) findViewById(R.id.tilImage);
 
-                    T.setError("Please Select an Image");
+                T.setError("Please Select an Image");
 
             }
             try {
                 TextInputLayout T = (TextInputLayout) findViewById(R.id.tilImage);
 
                 T.setError(null);
-                 selectedImageUri = data.getData();
+                selectedImageUri = data.getData();
                 ImageView imageView = (ImageView) findViewById(R.id.profile_image);
-                Bitmap bitmap=BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImageUri));
+                Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImageUri));
                 imageView.setImageBitmap(bitmap);
 
 
@@ -371,4 +455,3 @@ public class Register extends AppCompatActivity {
 
 
 }
-

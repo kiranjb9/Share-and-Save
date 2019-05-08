@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -190,6 +191,9 @@ public class Login extends AppCompatActivity {
             try {
                 jresponse = new JSONObject(result);
             } catch (JSONException e) {
+                TextInputLayout T = (TextInputLayout) findViewById(R.id.tilpassswaord);
+
+                T.setError("Email ID or Password is wrong");
                 e.printStackTrace();
             }
             System.out.println(jresponse.optString("Fname"));
@@ -207,7 +211,15 @@ public class Login extends AppCompatActivity {
                 editor.putString("fname",jresponse.optString("fname"));
                 editor.putString("lname",jresponse.optString("lname"));
                 editor.putString("email",jresponse.optString("email"));
+                editor.putString("DOB",jresponse.optString("DOB"));
+
+                editor.putString("adress",jresponse.optString("adress"));
+
+                editor.putString("gender",jresponse.optString("gender"));
                 editor.putString("phno",jresponse.optString("mobilenumber"));
+                editor.putString("imageID",jresponse.optString("image_id"));
+                editor.putString("pass",jresponse.optString("pass"));
+                
 
                 editor.putBoolean("isLoginKey",true);
                 editor.commit();
@@ -227,8 +239,9 @@ public class Login extends AppCompatActivity {
                 startActivity(myIntent);
             }
             if (TextUtils.isEmpty(result)) {
-             Toast.makeText(getApplicationContext(),"Password or Email Id is wrong",Toast.LENGTH_SHORT).show();
+                TextInputLayout T = (TextInputLayout) findViewById(R.id.tilpassswaord);
 
+                T.setError("Email ID or Password is wrong");
             }
 
 

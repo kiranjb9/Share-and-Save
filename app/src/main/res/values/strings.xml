@@ -68,5 +68,7 @@
 
     <string name="serverkey">AIzaSyAfcTzQD8HHgGosNqas1TF6R3UacJriDus</string>
 
+    <string name="title_activity_profile">Profile</string>
+
 
 </resources>

@@ -8,6 +8,52 @@ public class User {
     private String mobilenumber;
     private String pass;
     private RiderPosts requests_sent_for_post;
+    private  String image_id;
+
+    private  String adress;
+    private  String DOB;
+    private String gender;
+
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public RiderPosts getRequests_sent_for_post() {
+        return requests_sent_for_post;
+    }
+
+    public void setRequests_sent_for_post(RiderPosts requests_sent_for_post) {
+        this.requests_sent_for_post = requests_sent_for_post;
+    }
+
+    public String getImage_id() {
+        return image_id;
+    }
+
+    public void setImage_id(String image_id) {
+        this.image_id = image_id;
+    }
 
     public String getFname() {
         return fname;

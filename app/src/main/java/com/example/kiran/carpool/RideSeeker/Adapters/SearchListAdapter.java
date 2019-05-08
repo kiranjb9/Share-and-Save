@@ -6,9 +6,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +21,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kiran.carpool.R;
+import com.example.kiran.carpool.Riders_Adapters.Posts_Adapter;
 import com.example.kiran.carpool.Util.HttpManager;
 import com.example.kiran.carpool.Util.Models.Model_All_req;
 import com.example.kiran.carpool.Util.Models.RiderPosts;
@@ -31,6 +37,7 @@ import com.example.kiran.carpool.maps.MapActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +54,8 @@ public class SearchListAdapter extends ArrayAdapter<RiderPosts> {
     Button req;
     List age;
     ImageButton i;
-
+    SharedPreferences pref;
+    String imageid;
     Spinner spinner;
     List<RiderPosts> userList;
     ArrayAdapter<CharSequence> adapter1;
@@ -88,6 +96,18 @@ int Position;
         TextView seats = itemView.findViewById(R.id.noofseats);
         TextView money = itemView.findViewById(R.id.money);
         try {
+            imageid = p.getRide_postedBy().getImage_id();
+
+            pref = context.getSharedPreferences("MyPref", 0);
+
+            String u = context.getResources().getString(R.string.serviceUrl)+"/images/"+ imageid+".jpg";
+            System.out.println(u);
+
+            new SearchListAdapter.DownloadImageTask( itemView.findViewById(R.id.profile_image3))
+                    .execute(u);
+
+
+
             String id =p.getRide_postedBy().get_id();
             System.out.println("ID///////////////////////////" + id);
             seats.setText(p.getSeats());
@@ -250,6 +270,31 @@ int Position;
         }
 
 
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 
 }

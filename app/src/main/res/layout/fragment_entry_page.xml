@@ -3,110 +3,121 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".entryPage">
+    tools:context=".PostRideOffers">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="58dp"
+            android:background="#2e3131"
+
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/girl"
-                android:layout_width="143dp"
+                android:layout_width="63dp"
+                android:layout_height="59dp"
+                android:src="@mipmap/green" />
+
+
+            <TextView
+                android:id="@+id/datetime"
+                android:layout_width="84dp"
                 android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:layout_marginLeft="100dp"
+                android:text="DATE &amp;TIME"
+                android:textAlignment="center"
+                android:textColor="#f2f1ef" />
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="59dp"
+                android:layout_marginLeft="70dp"
+
+                android:padding="0dp"
+                android:src="@mipmap/red" />
+
+            <ImageView
+                android:id="@+id/info"
+                android:layout_width="45dp"
+                android:layout_height="32dp"
+                android:clickable="true"
+                android:padding="0dp"
+                android:src="@mipmap/info" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+
+            android:background="#2e3131"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/Searchsource"
+                android:layout_width="146dp"
+                android:layout_height="67dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/girl"
+                android:gravity="start"
+                android:text="DELHI"
 
-                />
-
-            <LinearLayout
-                android:layout_width="265dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/ListFname"
-                    android:layout_width="match_parent"
-                    android:layout_height="61dp"
-                    android:gravity="center"
-                    android:text="KIRAN"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textIsSelectable="true"
-                    android:textSize="20dp"
-                    android:textStyle="bold|italic" />
+                android:textAlignment="center"
+                android:textColor="#f2f1ef" />
 
 
-                <TextView
-                    android:id="@+id/datetime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="date" />
+            <TextView
+                android:id="@+id/Searchdest"
+                android:layout_width="140dp"
+                android:layout_height="77dp"
+                android:layout_marginLeft="120dp"
+                android:gravity="start"
+                android:text="DELHI"
+                android:textAlignment="center"
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:gravity="center"
-                        android:text="SOURCE"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold|italic" />
-
-                    <TextView
-                        android:id="@+id/ListBloodG"
-                        android:layout_width="117dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="start"
-                        android:gravity="start"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        android:text="A+" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="92dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="44dp"
-                        android:gravity="center"
-                        android:text="DESTINATION "
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold|italic" />
-
-
-                    <TextView
-                        android:id="@+id/Listplace"
-                        android:layout_width="151dp"
-                        android:layout_height="81dp"
-                        android:layout_gravity="start"
-                        android:gravity="start"
-                        android:padding="@dimen/activity_horizontal_margin"
-                        android:text="dsdsdfgfg"
-                        android:textColor="@color/colorPrimaryDark" />
-
-
-                </LinearLayout>
-            </LinearLayout>
+                android:textColor="#f2f1ef" />
 
 
         </LinearLayout>
 
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="horizontal"
+           android:layout_height="wrap_content">
 
+           <ImageView
+               android:layout_gravity="center"
+               android:layout_width="37dp"
+               android:layout_height="match_parent"
+               android:background="#cf000f"
+               android:src="@mipmap/delete"
 
+               />
+
+           <Button
+               android:id="@+id/deletePost"
+               android:layout_width="332dp"
+               android:layout_height="wrap_content"
+               android:background="#cf000f"
+               android:text="delete"
+               android:textColor="#f2f1ef"
+               android:textSize="20dp" />
+
+           <ImageView
+               android:layout_width="67dp"
+               android:layout_height="match_parent"
+                android:layout_gravity="center"
+               android:background="#cf000f"
+               android:src="@mipmap/delete"
+               />
+       </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
